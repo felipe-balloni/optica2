@@ -21,7 +21,7 @@ class StatesResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'state';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-s-location-marker';
 
     protected static ?string $navigationGroup = 'Tabelas';
 
@@ -49,13 +49,18 @@ class StatesResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('state')
-                ->label('Estado'),
+                    ->label('Estado')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('abbreviation')
-                ->label('Abr'),
+                    ->label('Abr')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
-            ]);
+            ])
+            ->defaultSort('state');;
     }
 
     public static function getRelations(): array
@@ -74,21 +79,21 @@ class StatesResource extends Resource
         ];
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['state', 'cities.city'];
-    }
-
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        return [
-            'Abr' => $record->abbreviation
-        ];
-    }
-
-    protected static function getGlobalSearchEloquentQuery(): Builder
-    {
-        return parent::getGlobalSearchEloquentQuery()->with(['cities']);
-    }
+//    public static function getGloballySearchableAttributes(): array
+//    {
+//        return ['state', 'cities.city'];
+//    }
+//
+//    public static function getGlobalSearchResultDetails(Model $record): array
+//    {
+//        return [
+//            'Abr' => $record->abbreviation
+//        ];
+//    }
+//
+//    protected static function getGlobalSearchEloquentQuery(): Builder
+//    {
+//        return parent::getGlobalSearchEloquentQuery()->with(['cities']);
+//    }
 
 }
