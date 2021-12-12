@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\StatesResource\Pages;
+namespace App\Filament\Resources\StateResource\Pages;
 
 use App\Filament\Resources\StateResource;
 use Filament\Pages\Actions\ButtonAction;

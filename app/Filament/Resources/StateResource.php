@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StatesResource\Pages;
-use App\Filament\Resources\StatesResource\RelationManagers;
+use App\Filament\Resources\StateResource\Pages;
+use App\Filament\Resources\StateResource\RelationManagers;
 use App\Models\State;
 use Filament\Facades\Filament;
 use Filament\Forms;

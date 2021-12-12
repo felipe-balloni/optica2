@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\RolesResource\RelationManagers;
+namespace App\Filament\Resources\RoleResource\RelationManagers;
 
 use Faker\Provider\Text;
 use Filament\Forms;
