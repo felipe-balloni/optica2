@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Models\Roles;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -12,7 +13,7 @@ use Filament\Tables;
 
 class RoleResource extends Resource
 {
-    protected static ?string $model = \Spatie\Permission\Models\Role::class;
+    protected static ?string $model = Roles::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-identification';
 
@@ -43,6 +44,9 @@ class RoleResource extends Resource
                     ->label('Funções')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('users_count')
+                    ->label('Usuários')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('guard_name')
                     ->label('Guard')
             ])

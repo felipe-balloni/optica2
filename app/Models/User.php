@@ -28,8 +28,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'avatar',
         'email',
         'password',
-        'isSuperAdmin',
-        'isActive'
+        'is_super_admin',
+        'is_active'
     ];
 
     /**
@@ -49,21 +49,26 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'isSuperAdmin' => 'boolean',
+        'is_super_admin' => 'boolean',
+        'is_active' => 'boolean',
+    ];
+
+    protected $with = [
+        'roles',
     ];
 
     public static function isSuperAdmin () : bool
     {
-        return Auth::user()->isSuperAdmin;
+        return Auth::user()->is_super_admin;
     }
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return url($this->avatar);
+        return ($this->avatar) ? url($this->avatar) : null;
     }
 
     public function canAccessFilament(): bool
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 }

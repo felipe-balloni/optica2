@@ -10,6 +10,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -47,6 +49,11 @@ class UserResource extends Resource
                             ->email()
                             ->unique(User::class)
                             ->required(),
+                        Forms\Components\BelongsToManyMultiSelect::make('roles')
+                            ->label('Função de usuário')
+                            ->exists( Role::class)
+                            ->relationship('roles', 'name')
+                            ->required(),
                     ]),
                 Forms\Components\Fieldset::make('Senhas de acesso')
                     ->schema([
@@ -61,11 +68,11 @@ class UserResource extends Resource
                             ->password()
                             ->required()
                             ->dehydrated(false),
-                        Forms\Components\Checkbox::make('isSuperAdmin')
+                        Forms\Components\Checkbox::make('is_super_admin')
                             ->label('Permissão especial Super Admin')
                             ->hidden(!User::IsSuperAdmin())
                             ->inline(),
-                        Forms\Components\Checkbox::make('isActive')
+                        Forms\Components\Checkbox::make('is_active')
                             ->label('Usuário está ativo')
                             ->inline(),
                     ])
@@ -77,18 +84,28 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar')
+                    ->label('')
                     ->size(50)
                     ->rounded(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('E-mail')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\BooleanColumn::make('isActive')
+                Tables\Columns\BadgeColumn::make('roles')
+                    ->formatStateUsing(fn ($state): string => $state->implode('name', ',')),
+                Tables\Columns\BooleanColumn::make('is_super_admin')
+                    ->label('Super Admin'),
+                Tables\Columns\BooleanColumn::make('is_active')
+                    ->label('Ativo'),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('is_active')
+                    ->query(fn (Builder $query): Builder => $query->where('is_active', true))
+                    ->label('Usuários ativos')
             ]);
     }
 

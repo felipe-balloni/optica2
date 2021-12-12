@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Role;
 
 class EditUser extends EditRecord
 {
@@ -27,6 +28,11 @@ class EditUser extends EditRecord
                         ->directory('users')
                         ->image()
                         ->imagePreviewHeight('180'),
+                    Forms\Components\BelongsToManyMultiSelect::make('roles')
+                        ->label('Função de usuário')
+                        ->exists( Role::class)
+                        ->relationship('roles', 'name')
+                        ->required(),
                 ]),
             Forms\Components\Fieldset::make('Senhas de acesso')
                 ->schema([
@@ -40,11 +46,11 @@ class EditUser extends EditRecord
                         ->label('Confirme a senha')
                         ->password()
                         ->dehydrated(false),
-                    Forms\Components\Checkbox::make('isSuperAdmin')
+                    Forms\Components\Toggle::make('is_super_admin')
                         ->label('Permissão especial Super Admin')
                         ->hidden(!User::IsSuperAdmin())
                         ->inline(),
-                    Forms\Components\Checkbox::make('isActive')
+                    Forms\Components\Toggle::make('is_active')
                         ->label('Usuário está ativo')
                         ->inline(),
                 ])

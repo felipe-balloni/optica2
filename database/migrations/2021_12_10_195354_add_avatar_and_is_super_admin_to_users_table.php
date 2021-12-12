@@ -15,7 +15,7 @@ class AddAvatarAndIsSuperAdminToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable()->after('name');
-            $table->boolean('isSuperAdmin')->default(0)->after('password');
+            $table->boolean('is_super_admin')->default(0)->after('password');
         });
     }
 
