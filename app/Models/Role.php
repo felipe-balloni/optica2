@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Spatie\Permission\Models\Role;
-
-class Roles extends Role
+class Role extends \Spatie\Permission\Models\Role
 {
 //    protected $with = [
 //        'users',

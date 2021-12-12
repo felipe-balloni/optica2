@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\SpatiePermissionModelsRole;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class RolePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\SpatiePermissionModelsRole  $spatiePermissionModelsRole
+     * @param  \App\Models\Role  $spatiePermissionModelsRole
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, SpatiePermissionModelsRole $spatiePermissionModelsRole)
+    public function view(User $user, Role $spatiePermissionModelsRole)
     {
         return $user->can('Ver funções de usuário e permissões');
     }
@@ -48,10 +48,10 @@ class RolePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\SpatiePermissionModelsRole  $spatiePermissionModelsRole
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, SpatiePermissionModelsRole $spatiePermissionModelsRole)
+    public function update(User $user, Role $role)
     {
         return $user->can('Editar funções de usuário e permissões');
     }
@@ -60,13 +60,12 @@ class RolePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\SpatiePermissionModelsRole  $spatiePermissionModelsRole
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, SpatiePermissionModelsRole $spatiePermissionModelsRole)
+    public function delete(User $user, Role $role)
     {
         return $user->can('Excluir funções de usuário e permissões');
-
     }
 
     /**
@@ -85,10 +84,10 @@ class RolePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\SpatiePermissionModelsRole  $spatiePermissionModelsRole
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, SpatiePermissionModelsRole $spatiePermissionModelsRole)
+    public function restore(User $user, Role $role)
     {
         //
     }
@@ -97,10 +96,10 @@ class RolePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\SpatiePermissionModelsRole  $spatiePermissionModelsRole
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, SpatiePermissionModelsRole $spatiePermissionModelsRole)
+    public function forceDelete(User $user, Role $role)
     {
         //
     }

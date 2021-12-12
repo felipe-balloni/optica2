@@ -23,6 +23,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $actions = [
             'Listar',
             'Ver',
+            'Criar',
             'Editar',
             'Excluir',
             'Excluir múltiplos',
@@ -59,22 +60,47 @@ class RolesAndPermissionsSeeder extends Seeder
             'is_active' => true,
         ]);
 
+        $roleAdmin = Role::create(['name' => 'Administrador']);
+
+        $roleUser = Role::create(['name' => 'Usuário']);
+
         $userAdmin = User::factory()->create([
             'name' => 'Administrador',
             'email' => 'admin@test.com',
             'is_active' => true,
-         ])->assignRole(Role::create(['name' => 'Administrador']));
+         ])->assignRole($roleAdmin);
 
         $user1 = User::factory()->create([
             'name' => 'Usuário ativo',
             'email' => 'user1@test.com',
             'is_active' => true,
-        ])->assignRole(Role::create(['name' => 'Usuário']));
+        ])->assignRole($roleUser);
 
         $user2 = User::factory()->create([
             'name' => 'Usuário inativo',
             'email' => 'user2@test.com',
-        ])->assignRole('Usuário');
+        ])->assignRole($roleUser);
 
+        $roleAdmin->givePermissionTo([
+            'Listar usuários',
+            'Listar funções de usuário e permissões',
+            'Listar estados e cidades',
+            'Listar tipos',
+
+            'Ver usuários',
+            'Ver funções de usuário e permissões',
+            'Ver estados e cidades',
+            'Ver tipos',
+
+            'Criar usuários',
+            'Criar funções de usuário e permissões',
+            'Criar estados e cidades',
+            'Criar tipos',
+
+            'Editar usuários',
+            'Editar funções de usuário e permissões',
+            'Editar estados e cidades',
+            'Editar tipos',
+        ]);
     }
 }

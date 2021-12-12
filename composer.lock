@@ -819,16 +819,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.5.12",
+            "version": "v2.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/admin.git",
-                "reference": "b69cf28b7455d3eac469e5f3514fc5de2086b6e8"
+                "reference": "96ecbc0ab11795df9468a3bbad6d80bd1ce4d816"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/b69cf28b7455d3eac469e5f3514fc5de2086b6e8",
-                "reference": "b69cf28b7455d3eac469e5f3514fc5de2086b6e8",
+                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/96ecbc0ab11795df9468a3bbad6d80bd1ce4d816",
+                "reference": "96ecbc0ab11795df9468a3bbad6d80bd1ce4d816",
                 "shasum": ""
             },
             "require": {
@@ -875,20 +875,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2021-12-10T13:59:09+00:00"
+            "time": "2021-12-11T11:35:56+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.5.12",
+            "version": "v2.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/forms.git",
-                "reference": "6ba7586da33a0e423c710a8a50d18baee5452706"
+                "reference": "b641b600d11b6996fb6b4678b64192cb0369cd0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/6ba7586da33a0e423c710a8a50d18baee5452706",
-                "reference": "6ba7586da33a0e423c710a8a50d18baee5452706",
+                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/b641b600d11b6996fb6b4678b64192cb0369cd0d",
+                "reference": "b641b600d11b6996fb6b4678b64192cb0369cd0d",
                 "shasum": ""
             },
             "require": {
@@ -928,20 +928,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2021-12-10T13:59:19+00:00"
+            "time": "2021-12-11T11:35:53+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.5.12",
+            "version": "v2.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/tables.git",
-                "reference": "0cef682fdbf49a855821709063ebc1c5b8b64df3"
+                "reference": "02fe6fe26445e7815fc11bd4da16aa309d611214"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/0cef682fdbf49a855821709063ebc1c5b8b64df3",
-                "reference": "0cef682fdbf49a855821709063ebc1c5b8b64df3",
+                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/02fe6fe26445e7815fc11bd4da16aa309d611214",
+                "reference": "02fe6fe26445e7815fc11bd4da16aa309d611214",
                 "shasum": ""
             },
             "require": {
@@ -981,7 +981,7 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2021-12-09T10:37:28+00:00"
+            "time": "2021-12-11T11:36:06+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -2145,16 +2145,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.8.1",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "0f846a93369109e445f0e5009741b1e19e6fa6f6"
+                "reference": "f6b1726d1068a5b7315f03dc4e58d5763b928374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/0f846a93369109e445f0e5009741b1e19e6fa6f6",
-                "reference": "0f846a93369109e445f0e5009741b1e19e6fa6f6",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/f6b1726d1068a5b7315f03dc4e58d5763b928374",
+                "reference": "f6b1726d1068a5b7315f03dc4e58d5763b928374",
                 "shasum": ""
             },
             "require": {
@@ -2205,7 +2205,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.8.1"
+                "source": "https://github.com/livewire/livewire/tree/v2.8.2"
             },
             "funding": [
                 {
@@ -2213,7 +2213,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-02T01:31:26+00:00"
+            "time": "2021-12-10T19:37:40+00:00"
         },
         {
             "name": "monolog/monolog",
