@@ -1,16 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +25,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'avatar',
         'email',
         'password',
+        'is_super_admin',
+        'is_active'
     ];
 
     /**
@@ -40,5 +49,26 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_super_admin' => 'boolean',
+        'is_active' => 'boolean',
     ];
+
+    protected $with = [
+        'roles',
+    ];
+
+    public static function isSuperAdmin () : bool
+    {
+        return Auth::user()->is_super_admin;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return ($this->avatar) ? url($this->avatar) : null;
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->is_active;
+    }
 }
