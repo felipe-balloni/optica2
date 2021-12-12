@@ -19,8 +19,9 @@ class EditUser extends EditRecord
                 ->columns(1)
                 ->schema([
                     Forms\Components\TextInput::make('name')
-                    ->label('Nome')
-                    ->required(),
+                        ->label('Nome')
+                        ->maxLength(255)
+                        ->required(),
                     Forms\Components\FileUpload::make('avatar')
                         ->label('Avatar')
                         ->directory('users')
@@ -32,10 +33,13 @@ class EditUser extends EditRecord
                     Forms\Components\TextInput::make('password')
                         ->label('Senha')
                         ->password()
-                        ->rules(['confirmed']),
+                        ->minLength(8)
+                        ->same('password_confirmation')
+                        ->dehydrateStateUsing(fn($state) => Hash::make($state)),
                     Forms\Components\TextInput::make('password_confirmation')
                         ->label('Confirme a senha')
-                        ->password(),
+                        ->password()
+                        ->dehydrated(false),
                     Forms\Components\Checkbox::make('isSuperAdmin')
                         ->label('Permissão especial Super Admin')
                         ->hidden(!User::IsSuperAdmin())
@@ -60,13 +64,10 @@ class EditUser extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         if ($data['password'] !== null) {
-            $data['password'] = bcrypt( $data['password']);
-            $data['password_confirmation'] = bcrypt( $data['password_confirmation']);
-            ray($data);
             return $data;
         }
 
-        return Arr::except($data, ['password', 'password_confirmation']);;
+        return Arr::except($data, ['password']);;
 
     }
 

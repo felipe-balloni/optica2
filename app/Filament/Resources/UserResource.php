@@ -21,6 +21,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Tabelas';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $label = 'Usuário';
 
     protected static ?string $pluralLabel = 'Usuários';
@@ -43,7 +45,7 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('email')
                             ->label('E-mail')
                             ->email()
-                            ->unique(table: User::class)
+                            ->unique(User::class)
                             ->required(),
                     ]),
                 Forms\Components\Fieldset::make('Senhas de acesso')
@@ -52,11 +54,13 @@ class UserResource extends Resource
                             ->label('Senha')
                             ->password()
                             ->rules(['confirmed'])
+                            ->dehydrateStateUsing( fn ($state) => Hash::make($state))
                             ->required(),
                         Forms\Components\TextInput::make('password_confirmation')
                             ->label('Confirme a senha')
                             ->password()
-                            ->required(),
+                            ->required()
+                            ->dehydrated(false),
                         Forms\Components\Checkbox::make('isSuperAdmin')
                             ->label('Permissão especial Super Admin')
                             ->hidden(!User::IsSuperAdmin())

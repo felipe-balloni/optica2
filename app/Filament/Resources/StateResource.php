@@ -15,7 +15,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class StatesResource extends Resource
+class StateResource extends Resource
 {
     protected static ?string $model = State::class;
 
@@ -24,6 +24,8 @@ class StatesResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-location-marker';
 
     protected static ?string $navigationGroup = 'Tabelas';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $label = 'Estado';
 
