@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StatesResource\Pages;
-use App\Filament\Resources\StatesResource\RelationManagers;
+use App\Filament\Resources\StateResource\Pages;
+use App\Filament\Resources\StateResource\RelationManagers;
 use App\Models\State;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -15,15 +15,17 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class StatesResource extends Resource
+class StateResource extends Resource
 {
     protected static ?string $model = State::class;
 
     protected static ?string $recordTitleAttribute = 'state';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-s-location-marker';
 
     protected static ?string $navigationGroup = 'Tabelas';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $label = 'Estado';
 
@@ -49,13 +51,21 @@ class StatesResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('state')
-                ->label('Estado'),
+                    ->label('Estado')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('abbreviation')
-                ->label('Abr'),
+                    ->label('Abr')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('cities_count')
+                    ->label('Cidades')
+                    ->sortable(),
             ])
             ->filters([
                 //
-            ]);
+            ])
+            ->defaultSort('state');;
     }
 
     public static function getRelations(): array
@@ -74,21 +84,21 @@ class StatesResource extends Resource
         ];
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['state', 'cities.city'];
-    }
-
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        return [
-            'Abr' => $record->abbreviation
-        ];
-    }
-
-    protected static function getGlobalSearchEloquentQuery(): Builder
-    {
-        return parent::getGlobalSearchEloquentQuery()->with(['cities']);
-    }
+//    public static function getGloballySearchableAttributes(): array
+//    {
+//        return ['state', 'cities.city'];
+//    }
+//
+//    public static function getGlobalSearchResultDetails(Model $record): array
+//    {
+//        return [
+//            'Abr' => $record->abbreviation
+//        ];
+//    }
+//
+//    protected static function getGlobalSearchEloquentQuery(): Builder
+//    {
+//        return parent::getGlobalSearchEloquentQuery()->with(['cities']);
+//    }
 
 }
