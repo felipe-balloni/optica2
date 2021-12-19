@@ -2,18 +2,18 @@
 
 return [
 
-    'title' => 'Edit :label',
+    'title' => 'Editar :label',
 
-    'breadcrumb' => 'Edit',
+    'breadcrumb' => 'Editar',
 
     'actions' => [
 
         'delete' => [
-            'label' => 'Delete',
+            'label' => 'Excluir',
         ],
 
         'view' => [
-            'label' => 'View',
+            'label' => 'Mostrar',
         ],
 
     ],
@@ -23,11 +23,11 @@ return [
         'actions' => [
 
             'cancel' => [
-                'label' => 'Cancel',
+                'label' => 'Cancelar',
             ],
 
             'save' => [
-                'label' => 'Save',
+                'label' => 'Salvar',
             ],
 
         ],
@@ -35,25 +35,25 @@ return [
     ],
 
     'messages' => [
-        'saved' => 'Saved',
+        'saved' => 'Salvo',
     ],
 
     'modals' => [
 
         'delete' => [
 
-            'heading' => 'Delete :label',
+            'heading' => 'Excluir :label',
 
-            'subheading' => 'Are you sure you would like to do this?',
+            'subheading' => 'Você tem certeza que deseja fazer isso?',
 
             'buttons' => [
 
                 'cancel' => [
-                    'label' => 'Cancel',
+                    'label' => 'Cancelar',
                 ],
 
                 'delete' => [
-                    'label' => 'Delete',
+                    'label' => 'Excluir',
                 ],
 
             ],

@@ -11,21 +11,21 @@ return [
         ],
 
         'messages' => [
-            'deleted' => 'Excluido',
+            'deleted' => 'Excluído',
         ],
 
     ],
 
     'bulk_action' => [
 
-        'label' => 'Excluir selecionadp',
+        'label' => 'Excluir selecionado',
 
         'modal' => [
             'heading' => 'Excluir selecionado :label',
         ],
 
         'messages' => [
-            'deleted' => 'Excluido',
+            'deleted' => 'Excluído',
         ],
 
     ],
