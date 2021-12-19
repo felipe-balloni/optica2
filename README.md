@@ -67,19 +67,15 @@ You're ready to go! Visit the url in your browser
     
     /sistema
 
-, and login with
-
-
+, and login with:
 
 Super Administrator
 - **Username:** super.admin@test.com
 - **Password:** password
 
-
 Administrator
 - **Username:** admin@test.com
 - **Password:** password
-
 
 Users
 
@@ -88,5 +84,5 @@ Users
 - **Username:** user1@test.com
 - **Password:** password
 
-##Note:
+## Note:
 The application is configured with the pt_BR language and America/Sao_Paulo time zone. If necessary, please remember to change it in the config/app.php configuration file
