@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Type extends Model
 {
@@ -24,4 +25,11 @@ class Type extends Model
         'Addresses' => 'Addresses',
         'Recipes' => 'Recipes',
     ];
+
+    protected static function booted()
+    {
+        static::created( function () {
+            Cache::rememberForever('types', self::all());
+        });
+    }
 }

@@ -9,5 +9,4 @@ use Filament\Resources\Pages\ListRecords;
 class ListStates extends ListRecords
 {
     protected static string $resource = StateResource::class;
-
 }
