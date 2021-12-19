@@ -1,8 +1,8 @@
-## Optica2 - this a parcial clone of a project.
+## Optica2 - this a partial clone of a real project.
 
-This is a project for learning purposes only.
+This is for learning purposes only.
 
-Made with Laravel, Filament Admin and Spatie / Permission. I am very grateful to the developers of these great frameworks and packages.
+Made with Laravel, Filament Admin and Spatie / Permission. I am very grateful to the creators of these great frameworks and packages.
 
 ## Learning Laravel
 
@@ -16,7 +16,7 @@ Filament is a collection of tools for rapidly building beautiful TALL stack inte
 
 ### Admin Panel • [Documentation](https://filamentadmin.com/docs/admin) • [Demo](https://demo.filamentadmin.com)
 
-## Larevel Permission by Spatie
+## Laravel Permission by Spatie
 
 This package allows you to manage user permissions and roles in a database.
 
@@ -71,17 +71,17 @@ You're ready to go! Visit the url in your browser
 
 
 
-###Super Admin
+Super Administrator
 - **Username:** super.admin@test.com
 - **Password:** password
 
 
-###Admin
+Administrator
 - **Username:** admin@test.com
 - **Password:** password
 
 
-###Users
+Users
 
     User don't have any permission (yet).
 
