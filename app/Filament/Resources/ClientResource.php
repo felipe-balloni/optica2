@@ -91,6 +91,7 @@ class ClientResource extends Resource
 
                 Forms\Components\HasManyRepeater::make('Telefones')
                     ->relationship('phones')
+                    ->defaultItems(1)
                     ->schema([
                         Forms\Components\Grid::make()
                             ->schema([
@@ -116,6 +117,7 @@ class ClientResource extends Resource
 
                 Forms\Components\HasManyRepeater::make('Endereços')
                     ->relationship('addresses')
+                    ->defaultItems(1)
                     ->schema([
 
                         Forms\Components\Grid::make()
@@ -215,6 +217,7 @@ class ClientResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
+                    ->limit('30')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\BadgeColumn::make('type.name')
@@ -243,16 +246,16 @@ class ClientResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ButtonAction::make('receitas')
-                    ->label('Receitas')
+                    ->label('')
                     ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-annotation')
                     ->color('success'),
                 Tables\Actions\ButtonAction::make('view')
-                    ->label('Ver')
+                    ->label('')
                     ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
                 Tables\Actions\ButtonAction::make('edit')
-                    ->label('Editar')
+                    ->label('')
                     ->url(fn(Client $record): string => static::getUrl('edit', ['record' => $record]))
                     ->icon('heroicon-o-pencil')
                     ->color('warning'),
