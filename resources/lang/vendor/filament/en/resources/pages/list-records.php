@@ -2,12 +2,12 @@
 
 return [
 
-    'breadcrumb' => 'List',
+    'breadcrumb' => 'Mostrar',
 
     'actions' => [
 
         'create' => [
-            'label' => 'New :label',
+            'label' => 'Novo :label',
         ],
 
     ],
@@ -17,11 +17,11 @@ return [
         'actions' => [
 
             'edit' => [
-                'label' => 'Edit',
+                'label' => 'Editar',
             ],
 
             'view' => [
-                'label' => 'View',
+                'label' => 'Mostrar',
             ],
 
         ],
@@ -29,7 +29,7 @@ return [
         'bulk_actions' => [
 
             'delete' => [
-                'label' => 'Delete selected',
+                'label' => 'Excluir selecionado',
             ],
 
         ],

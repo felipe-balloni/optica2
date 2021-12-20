@@ -2,7 +2,7 @@
 
 return [
 
-    'breadcrumb' => 'Create',
+    'breadcrumb' => 'Criar',
 
     'form' => [
 
@@ -13,11 +13,11 @@ return [
             ],
 
             'create' => [
-                'label' => 'Criar',
+                'label' => 'Salvar',
             ],
 
             'create_and_create_another' => [
-                'label' => 'Salvar & criar outro',
+                'label' => 'Salvar e criar outro',
             ],
 
         ],

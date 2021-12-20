@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class State extends Model
 {
@@ -23,8 +24,21 @@ class State extends Model
         'abbreviation'
     ];
 
+    protected static function booted()
+    {
+        static::created( function () {
+            Cache::forget('states');
+            self::getState();
+        });
+    }
+
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
     }
+
+    public static function getState () {
+        return Cache::rememberForever('states', fn() => self::all());
+    }
+
 }

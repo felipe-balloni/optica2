@@ -6,7 +6,7 @@ return [
 
     'buttons' => [
         'logout' => [
-            'label' => 'Sign out',
+            'label' => 'Sair',
         ],
     ],
 

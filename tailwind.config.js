@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
     content: [
@@ -10,10 +11,14 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                danger: colors.rose,
-                primary: colors.blue,
-                success: colors.green,
-                warning: colors.yellow,
+                danger: colors.red,
+                gray: colors.blueGray,
+                primary: colors.sky,
+                success: colors.teal,
+                warning: colors.amber,
+            },
+            fontFamily: {
+                sans: ['Roboto', ...defaultTheme.fontFamily.sans],
             },
         },
     },

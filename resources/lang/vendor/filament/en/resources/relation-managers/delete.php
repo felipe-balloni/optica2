@@ -4,28 +4,28 @@ return [
 
     'action' => [
 
-        'label' => 'Delete',
+        'label' => 'Excluir',
 
         'modal' => [
-            'heading' => 'Delete :label',
+            'heading' => 'Exclui :label',
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Excluído',
         ],
 
     ],
 
     'bulk_action' => [
 
-        'label' => 'Delete selected',
+        'label' => 'Excluir selecionado',
 
         'modal' => [
-            'heading' => 'Delete selected :label',
+            'heading' => 'Excluir selecionado :label',
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Excluído',
         ],
 
     ],

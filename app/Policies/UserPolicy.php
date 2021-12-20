@@ -52,6 +52,10 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
+        if ($model->is_super_admin) {
+            return false;
+        }
+
         return $user->can('Editar usuários');
     }
 
