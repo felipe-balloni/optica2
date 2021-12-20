@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function (): void {
             Filament::registerTheme(mix('css/app.css'));
         });
+
+        Model::preventLazyLoading(! app()->isProduction());
     }
 }
