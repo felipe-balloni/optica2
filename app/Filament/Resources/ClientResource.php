@@ -47,7 +47,7 @@ class ClientResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cpf')
-                            ->maxLength(15)
+                            ->maxLength(14)
                             ->label('CPF')
                             ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00') ),
                         Forms\Components\TextInput::make('state_id')
@@ -55,7 +55,7 @@ class ClientResource extends Resource
                             ->maxLength(15)
                             ->helperText('RG, se possivel, no formato 00.000.000-00'),
                         Forms\Components\TextInput::make('date_birth')
-                            ->label('Date Nascimento')
+                            ->label('Data de Nascimento')
                             ->type('date'),
                         Forms\Components\Select::make('sex')
                             ->id('sex')
@@ -66,7 +66,6 @@ class ClientResource extends Resource
                                 'f' => 'Feminino',
                                 'n' => 'n/a',
                             ]),
-
                     ]),
 
                 Forms\Components\Fieldset::make('Dados para Pessoa Juridica')
@@ -75,14 +74,14 @@ class ClientResource extends Resource
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cnpj')
                             ->label('CNPJ')
-                            ->maxLength(15)
-                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000') ),
+                            ->maxLength(18)
+                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00') ),
                         Forms\Components\TextInput::make('state_id')
                             ->label('Inscrição Estadual')
                             ->maxLength(20)
                             ->helperText('Inscrição Estadual ou ISENTO se não contribuinte.'),
                         Forms\Components\TextInput::make('date_birth')
-                            ->label('Date abertura')
+                            ->label('Data de abertura')
                             ->type('date'),
                     ]),
                 Forms\Components\Toggle::make('defaulter')
@@ -153,7 +152,7 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ClientRelationManager::class,
         ];
     }
 

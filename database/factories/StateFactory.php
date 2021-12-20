@@ -14,7 +14,8 @@ class StateFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'state' => $this->faker->word(),
+            'abbreviation' => $this->faker->regexify('[A-Z]{2}')
         ];
     }
 }

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 
 class City extends Model
 {
@@ -17,6 +18,14 @@ class City extends Model
     protected $fillable = [
         'city'
     ];
+
+    protected static function booted()
+    {
+        static::created( function () {
+            Cache::forget('cities');
+            Cache::rememberForever('cities', fn() => self::all());
+        });
+    }
 
     public function state(): BelongsTo
     {
