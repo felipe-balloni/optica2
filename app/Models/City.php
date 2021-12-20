@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class City extends Model
 {
@@ -23,7 +24,7 @@ class City extends Model
     {
         static::created( function () {
             Cache::forget('cities');
-            Cache::rememberForever('cities', fn() => self::all());
+            self::getCities();
         });
     }
 
@@ -31,4 +32,16 @@ class City extends Model
     {
         return $this->belongsTo(State::class);
     }
+
+    public static function getCities(): Collection
+    {
+        return Cache::rememberForever('cities', fn() => self::all());
+    }
+
+
+    public static function getCitiesOfState(int $state_id): mixed
+    {
+        return Cache::remember('cities::of::state::' . $state_id, 60, fn() => self::getCities()->where('state_id', $state_id));
+    }
+
 }

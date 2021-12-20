@@ -55,7 +55,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     ];
 
     protected $with = [
-        'roles', 'permissions',
+        'roles',
     ];
 
     protected static function booted()

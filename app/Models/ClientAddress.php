@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use PhpParser\Node\Scalar\String_;
 
@@ -30,10 +31,8 @@ class ClientAddress extends Model
     ];
 
     protected $with = [
-        'client',
-        'type',
-        'state',
-        'city',
+//        'state',
+//        'city',
     ];
 
     public static function GetAddress(string $state): array | int
@@ -41,13 +40,16 @@ class ClientAddress extends Model
 
         $response = Http::get('https://brasilapi.com.br/api/cep/v1/'. $state);
 
+        ray($response, $response->ok(), $response->status(), $response->json() );
+
         if ( $response->ok() ) {
             $data = $response->json();
 
-            $state = State::with('cities')->where('abbreviation', $data['state'])->first();
+            $state = State::with('cities')->where('abbreviation', $data['state'])->firstOrFail();
+            $city = $state->cities->where('city', $data['city'])->first();
 
             $data['state'] = $state->id;
-            $data['city'] = $state->cities->where('city', $data['city'])->first()->id;
+            $data['city'] = $city->id ?? null;
 
             return $data;
         }
@@ -75,17 +77,17 @@ class ClientAddress extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function getAddressAttribute()
+    public function getAddressAttribute(): array
     {
-//        return "{$this->address_1}, {$this->number}";
         return [
             'postal_code' => $this->postal_code,
             'address_1' => $this->address_1,
             'number' => $this->number,
             'complement' => $this->complement,
             'address_2' => $this->address_2,
-            'state' => $this->state->abbreviation,
-            'city' => $this->city->city,
+            'state' => State::getState()->where('id', $this->state_id)->first()->abbreviation,
+            'city' => City::getCitiesOfState($this->state_id)->get($this->city_id)->city,
+//            'city' => 1,
         ];
     }
 

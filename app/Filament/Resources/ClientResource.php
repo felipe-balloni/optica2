@@ -37,7 +37,7 @@ class ClientResource extends Resource
                 Forms\Components\Select::make('type_id')
                     ->label('Tipo do cliente')
                     ->helperText('Selecione o tipo do cliente.')
-                    ->options(Type::where('used_by', 'Clients')->pluck('name', 'id'))
+                    ->options(Type::getTypes('Clients'))
                     ->default(1)
                     ->required()
                     ->reactive(),
@@ -84,6 +84,10 @@ class ClientResource extends Resource
                             ->label('Data de abertura')
                             ->type('date'),
                     ]),
+
+
+
+
                 Forms\Components\Toggle::make('defaulter')
                     ->label('Inadimplente')
                     ->helperText('Marcar este campo irá destacar a linha do cliente nas listagens.')

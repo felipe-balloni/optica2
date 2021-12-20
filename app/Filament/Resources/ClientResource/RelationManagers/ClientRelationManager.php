@@ -32,13 +32,13 @@ class ClientRelationManager extends HasManyRelationManager
                 Forms\Components\Select::make('type_id')
                     ->label('Tipo do endereço')
                     ->helperText('Selecione o tipo do endereço.')
-                    ->options(Type::where('used_by', 'Addresses')->pluck('name', 'id'))
+                    ->options(Type::getTypes('Addresses'))
                     ->default(6)
                     ->required(),
                 Forms\Components\TextInput::make('postal_code')
                     ->label('CEP')
                     ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
-                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000-000') )
+                    ->maxLength(8)
                     ->reactive()
                     ->afterStateUpdated(function (callable $set, $state) {
                         if ( Str::length($state) === 8 ) {
@@ -51,12 +51,15 @@ class ClientRelationManager extends HasManyRelationManager
                             }
                         }
                     })
+                    ->stateBindingModifiers(['debounce', '1s'])
+//                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('{9}00000-000') )
                     ->required(),
-                Forms\Components\Card::make()
+                Forms\Components\Fieldset::make('Endereços')
                     ->schema([
                         Forms\Components\TextInput::make('address_1')
                             ->label('Endereço')
-                            ->required(),
+                            ->required()
+                            ->columnSpan(2),
                         Forms\Components\Grid::make()
                         ->schema([
                             Forms\Components\TextInput::make('number')
@@ -69,14 +72,15 @@ class ClientRelationManager extends HasManyRelationManager
                         ->columns(3),
                         Forms\Components\TextInput::make('address_2')
                             ->label('Bairro')
-                            ->required(),
+                            ->required()
+                            ->columnSpan(2),
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\Select::make('state_id')
                                     ->label('Estado')
                                     ->helperText('Selecione o estado.')
                                     ->options(
-                                        Cache::get('states')->pluck('state', 'id')
+                                        State::getState()->pluck('state', 'id')
                                     )
                                     ->reactive()
                                     ->afterStateUpdated(function (callable $set) {
@@ -86,10 +90,9 @@ class ClientRelationManager extends HasManyRelationManager
                                 Forms\Components\Select::make('city_id')
                                     ->label('Cidade')
                                     ->options( function ( callable $get) {
-                                        $state = State::with('cities')->find($get('state_id'));
-                                        if ($state) {
-                                            return $state->cities->pluck('city', 'id');
-                                        }
+//                                        if ($get('state_id')) {
+                                            return City::getCitiesOfState($get('state_id'))->pluck('city', 'id');
+//                                        }
                                         return [];
                                     })
                                     ->required(),
@@ -97,7 +100,8 @@ class ClientRelationManager extends HasManyRelationManager
                             ->columns(2),
                         Forms\Components\Textarea::make('comments')
                             ->rows(1)
-                            ->label('Observação geral'),
+                            ->label('Observação geral')
+                            ->columnSpan(2),
                     ])
             ]);
     }

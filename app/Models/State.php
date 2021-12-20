@@ -15,10 +15,6 @@ class State extends Model
 
     public $timestamps = false;
 
-    protected $with = [
-        'cities',
-    ];
-
     protected $withCount = [
         'cities',
     ];
@@ -32,7 +28,7 @@ class State extends Model
     {
         static::created( function () {
             Cache::forget('states');
-            Cache::rememberForever('states', fn() => self::all());
+            self::getState();
         });
     }
 
@@ -40,4 +36,9 @@ class State extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public static function getState () {
+        return Cache::rememberForever('states', fn() => self::all());
+    }
+
 }
