@@ -13,24 +13,24 @@ return [
     'fields' => [
 
         'email' => [
-            'label' => 'Email address',
+            'label' => 'E-mail',
         ],
 
         'password' => [
-            'label' => 'Password',
+            'label' => 'Senha',
         ],
 
         'remember' => [
-            'label' => 'Remember me',
+            'label' => 'Lembrar de mim',
         ],
 
     ],
 
     'messages' => [
-        'failed' => 'These credentials do not match our records.',
-        'throttled' => 'Too many login attempts. Please try again in :seconds seconds.',
+        'failed' => 'Essas credenciais não conferem com nossos registros.',
+        'throttled' => 'Muitas tentativas de login. Por favor, aguarde :seconds segundos para tentar novamente.',
     ],
 
-    'heading' => 'Sign in to your account',
+    'heading' => 'Login na sua conta',
 
 ];

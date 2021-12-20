@@ -2,12 +2,12 @@
 
 return [
 
-    'breadcrumb' => 'View',
+    'breadcrumb' => 'Mostrar',
 
     'actions' => [
 
         'edit' => [
-            'label' => 'Edit',
+            'label' => 'Editar',
         ],
 
     ],

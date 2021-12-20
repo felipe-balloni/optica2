@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -56,6 +57,13 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     protected $with = [
         'roles',
     ];
+
+    protected static function booted()
+    {
+        static::created( function () {
+            Cache::rememberForever('users', self::all());
+        });
+    }
 
     public static function isSuperAdmin () : bool
     {
