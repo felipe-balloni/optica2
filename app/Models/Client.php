@@ -59,4 +59,9 @@ class Client extends Model
         return $this->hasMany(ClientAddress::class);
     }
 
+    public function phones(): HasMany
+    {
+        return $this->hasMany(ClientPhone::class);
+    }
+
 }

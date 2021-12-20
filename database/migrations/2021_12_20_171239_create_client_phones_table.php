@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientAddressesTable extends Migration
+class CreateClientPhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateClientAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_addresses', function (Blueprint $table) {
+        Schema::create('client_phones', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained();
             $table->foreignIdFor(\App\Models\Type::class)->constrained();
-            $table->string('postal_code', 10)->nullable();
-            $table->string('address_1')->nullable();
-            $table->string('number', 10)->nullable();
-            $table->string('complement', 50)->nullable();
-            $table->string('address_2')->nullable();
-            $table->foreignIdFor(\App\Models\State::class)->constrained();
-            $table->foreignIdFor(\App\Models\City::class)->constrained();
+            $table->string('phone', 20)->nullable();
+            $table->string('ext', 5)->nullable();
             $table->text('comments')->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -37,6 +32,6 @@ class CreateClientAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_addresses');
+        Schema::dropIfExists('client_phones');
     }
 }
