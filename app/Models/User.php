@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -61,7 +62,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     protected static function booted()
     {
         static::created( function () {
-            Cache::rememberForever('users', self::all());
+            Cache::rememberForever('users', fn() => self::all());
         });
     }
 
@@ -79,4 +80,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         return $this->is_active;
     }
+
+    public function getNewAvatarAttribute(): ?string
+    {
+        return Filament::getUserAvatarUrl($this);
+    }
+
 }
