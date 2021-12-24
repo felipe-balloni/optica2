@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class Client extends Model
     protected $fillable = [
         'name',
         'type_id',
+        'email',
         'federal_id',
         'state_id',
         'date_birth',
@@ -31,12 +33,8 @@ class Client extends Model
         'defaulter' => 'boolean'
     ];
 
-    protected $with = [
-
-    ];
-
-    protected $withCount = [
-
+    protected $dates = [
+      'date_birth',
     ];
 
     protected static function booted()
@@ -62,6 +60,11 @@ class Client extends Model
     public function phones(): HasMany
     {
         return $this->hasMany(ClientPhone::class);
+    }
+
+    public function getDateBirthAttribute($value): string
+    {
+        return Carbon::create($value)->format('Y-m-d');
     }
 
 }

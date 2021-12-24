@@ -16,7 +16,7 @@ use PhpParser\Node\Scalar\String_;
 
 class ClientAddress extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'type_id',
@@ -39,8 +39,6 @@ class ClientAddress extends Model
     {
 
         $response = Http::get('https://brasilapi.com.br/api/cep/v1/'. $state);
-
-        ray($response, $response->ok(), $response->status(), $response->json() );
 
         if ( $response->ok() ) {
             $data = $response->json();
