@@ -3,14 +3,22 @@
 namespace App\Filament\Resources\ClientResource\Pages;
 
 use App\Filament\Resources\ClientResource;
+use App\Forms\Components\TextInputButton;
+use App\Forms\Concerns\HasButton;
+use App\Models\ClientAddress;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
 
 class EditClient extends EditRecord
 {
     protected static string $resource = ClientResource::class;
 
-    protected function getRedirectUrl(): ?string
+    public function getCEP($state)
     {
-        return static::getResource()::getUrl();
+       ray($state);
+       $data = ClientAddress::GetAddress($state);
+
+        ray($data, $this->data);
+
     }
 }

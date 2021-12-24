@@ -3,7 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
+use App\Forms\Components\TextInputButton;
+use App\Forms\Concerns\HasButton;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientAddress;
@@ -19,6 +20,8 @@ use Illuminate\Support\Str;
 
 class ClientResource extends Resource
 {
+    use HasButton;
+
     protected static ?string $model = Client::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-user-group';
@@ -45,6 +48,12 @@ class ClientResource extends Resource
                     ->default(1)
                     ->required()
                     ->reactive(),
+                Forms\Components\TextInput::make('email')
+                    ->label('E-mail')
+                    ->email()
+                    ->helperText('Nome completo ou Razão social.')
+                    ->maxLength(255)
+                    ->required(),
 
                 Forms\Components\Fieldset::make('Dados para Pessoa Física')
                     ->when(fn(callable $get) => $get('type_id') == 1)
@@ -57,7 +66,7 @@ class ClientResource extends Resource
                         Forms\Components\TextInput::make('state_id')
                             ->label('RG')
                             ->maxLength(15)
-                            ->helperText('RG, se possivel, no formato 00.000.000-00'),
+                            ->helperText('RG no formato 00.000.000-00'),
                         Forms\Components\TextInput::make('date_birth')
                             ->label('Data de Nascimento')
                             ->type('date'),
@@ -90,6 +99,7 @@ class ClientResource extends Resource
                     ]),
 
                 Forms\Components\HasManyRepeater::make('Telefones')
+                    ->label('Telefones')
                     ->relationship('phones')
                     ->defaultItems(1)
                     ->schema([
@@ -115,11 +125,11 @@ class ClientResource extends Resource
                     ])->createItemButtonLabel('Adicionar telefone')
                     ->columnSpan(2),
 
-                Forms\Components\HasManyRepeater::make('Endereços')
+                Forms\Components\HasManyRepeater::make('addresses')
+                    ->label('Endereços')
                     ->relationship('addresses')
                     ->defaultItems(1)
                     ->schema([
-
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\Select::make('type_id')
@@ -128,25 +138,33 @@ class ClientResource extends Resource
                                     ->options(Type::getTypes('Addresses'))
                                     ->default(6)
                                     ->required(),
-                                Forms\Components\TextInput::make('postal_code')
+                                TextInputButton::make('postal_code')
                                     ->label('CEP')
                                     ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
-                                    ->maxLength(8)
+                                    ->maxLength(9)
+                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000`-000'))
                                     ->reactive()
-                                    ->afterStateUpdated(function (callable $set, $state) {
-                                        if (Str::length($state) === 8) {
-                                            $data = ClientAddress::GetAddress($state);
-                                            if ($data !== 404) {
-                                                $set('address_1', $data['street']);
-                                                $set('address_2', $data['neighborhood']);
-                                                $set('state_id', $data['state']);
-                                                $set('city_id', $data['city']);
-                                            }
-                                        }
-                                    })
-                                    ->stateBindingModifiers(['debounce', '1s'])
-                                    //                          ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('{9}00000-000') )
-                                    ->required(),
+                                ,
+//                                Forms\Components\TextInput::make('postal_code')
+//                                    ->label('CEP')
+//                                    ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
+//                                    //                                    ->maxLength(9)
+//                                    ->reactive()
+//                                    ->afterStateUpdated(function (callable $set, $state) {
+//                                        $set('cep', Str::length($state));
+//                                        if (Str::length($state) === 9) {
+//                                            $data = ClientAddress::GetAddress($state);
+//                                            if ($data !== 404) {
+//                                                $set('address_1', $data['street']);
+//                                                $set('address_2', $data['neighborhood']);
+//                                                $set('state_id', $data['state']);
+//                                                $set('city_id', $data['city']);
+//                                            }
+//                                        }
+//                                    })
+//                                    //                                    ->stateBindingModifiers(['lazy'])
+//                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000`-000'))
+//                                    ->required(),
                             ]),
 
                         Forms\Components\Fieldset::make('Endereços')
@@ -184,7 +202,7 @@ class ClientResource extends Resource
                                             ->label('Cidade')
                                             ->options(function (callable $get) {
                                                 if ($get('state_id')) {
-                                                    return City::getCitiesOfState($get('state_id'))->pluck('city', 'id');
+                                                    return City::getCitiesOfState((int)$get('state_id'))->pluck('city', 'id');
                                                 }
                                                 return [];
                                             })
@@ -245,17 +263,14 @@ class ClientResource extends Resource
                     ->label('Inadimplente')
             ])
             ->actions([
-                Tables\Actions\ButtonAction::make('receitas')
-                    ->label('')
+                Tables\Actions\IconButtonAction::make('receitas')
                     ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-annotation')
                     ->color('success'),
-                Tables\Actions\ButtonAction::make('view')
-                    ->label('')
+                Tables\Actions\IconButtonAction::make('view')
                     ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
-                Tables\Actions\ButtonAction::make('edit')
-                    ->label('')
+                Tables\Actions\IconButtonAction::make('edit')
                     ->url(fn(Client $record): string => static::getUrl('edit', ['record' => $record]))
                     ->icon('heroicon-o-pencil')
                     ->color('warning'),

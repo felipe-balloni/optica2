@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ClientResource\Pages;
 
 use App\Filament\Resources\ClientResource;
+use App\Models\ClientAddress;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateClient extends CreateRecord
@@ -11,9 +12,13 @@ class CreateClient extends CreateRecord
 
     protected static ?string $title = 'Criar';
 
-
-    protected function getRedirectUrl(): ?string
+    public function getCEP($state)
     {
-        return static::getResource()::getUrl();
+        ray($state);
+        $data = ClientAddress::GetAddress($state);
+
+        ray($data, $this->getForms());
+
     }
+
 }
