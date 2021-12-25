@@ -140,11 +140,12 @@ class ClientResource extends Resource
                                     ->required(),
                                 TextInputButton::make('postal_code')
                                     ->label('CEP')
-                                    ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
+                                    ->helperText('Digite o CEP e clique na lupa para preencher os demais campos.')
+//                                    ->hint('se não encontrar os campos ficarão vazio e podem ser preenchidos manualmente')
                                     ->maxLength(9)
                                     ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000`-000'))
                                     ->reactive()
-                                ,
+                                    ->required(),
 //                                Forms\Components\TextInput::make('postal_code')
 //                                    ->label('CEP')
 //                                    ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
@@ -154,12 +155,11 @@ class ClientResource extends Resource
 //                                        $set('cep', Str::length($state));
 //                                        if (Str::length($state) === 9) {
 //                                            $data = ClientAddress::GetAddress($state);
-//                                            if ($data !== 404) {
-//                                                $set('address_1', $data['street']);
-//                                                $set('address_2', $data['neighborhood']);
-//                                                $set('state_id', $data['state']);
-//                                                $set('city_id', $data['city']);
-//                                            }
+//                                             if ($data !== 404) {
+////                                                $set('address_1', $data['street']);
+////                                                $set('address_2', $data['neighborhood']);
+////                                                $set('state_id', $data['state']);
+////                                                $set('city_id', $data['city']);
 //                                        }
 //                                    })
 //                                    //                                    ->stateBindingModifiers(['lazy'])
@@ -235,16 +235,19 @@ class ClientResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
-                    ->limit('30')
+//                    ->limit('17')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['class' => 'break-word max-w-48']),
                 Tables\Columns\BadgeColumn::make('type.name')
                     ->label('Tipo pessoa')
                     ->searchable()
-                    ->colors(['success']),
+                    ->colors(['success'])
+                    ->extraAttributes(['class' => 'whitespace-nowrap']),
                 Tables\Columns\TextColumn::make('federal_id')
                     ->label('CFP/CNPJ')
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['class' => 'whitespace-nowrap']),
                 Tables\Columns\TextColumn::make('old_id')
                     ->label('ID ant.')
                     ->searchable(),
@@ -275,7 +278,25 @@ class ClientResource extends Resource
                     ->icon('heroicon-o-pencil')
                     ->color('warning'),
             ])
-            ->defaultSort('id', 'desc');
+            ->defaultSort('id', 'desc')
+            ;
+    }
+
+    protected function getTableActions(): array
+    {
+        return [
+            Tables\Actions\IconButtonAction::make('receitas')
+                ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
+                ->icon('heroicon-o-annotation')
+                ->color('success'),
+//            Tables\Actions\IconButtonAction::make('view')
+//                ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
+//                ->icon('heroicon-o-eye'),
+//            Tables\Actions\IconButtonAction::make('edit')
+//                ->url(fn(Client $record): string => static::getUrl('edit', ['record' => $record]))
+//                ->icon('heroicon-o-pencil')
+//                ->color('warning'),
+        ];
     }
 
     public static function getRelations(): array

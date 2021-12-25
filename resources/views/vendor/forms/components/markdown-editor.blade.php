@@ -14,6 +14,8 @@
         })"
         x-cloak
         wire:ignore
+        {{ $attributes->merge($getExtraAttributes()) }}
+        {{ $getExtraAlpineAttributeBag() }}
     >
         <div class="space-y-2">
             @unless ($isDisabled())
@@ -158,14 +160,16 @@
 
                             $wire.upload(`componentFileAttachments.{{ $getStatePath() }}`, attachment.file, () => {
                                 $wire.getComponentFileAttachmentUrl('{{ $getStatePath() }}').then((url) => {
-                                    if (! url) return
+                                    if (! url) {
+                                        return
+                                    }
 
                                     $refs.imageTrigger.click()
 
                                     const urlStart = $refs.textarea.selectionStart + 2
                                     const urlEnd = urlStart + 3
 
-                                    $refs.textarea.value = [
+                                    state = [
                                         $refs.textarea.value.substring(0, urlStart),
                                         url,
                                         $refs.textarea.value.substring(urlEnd)
@@ -174,17 +178,17 @@
                                     $refs.textarea.selectionStart = urlStart - 2
                                     $refs.textarea.selectionEnd = urlStart - 2
 
-                                    resize()
+                                    render()
                                 })
                             })
                         "
                         x-ref="textarea"
                         style="caret-color: black; color: transparent"
-                        {{ $attributes->merge($getExtraAttributes())->class([
+                        @class([
                             'tracking-normal whitespace-pre-wrap overflow-y-hidden font-mono block absolute bg-transparent top-0 text-sm left-0 block z-1 w-full h-full min-h-full resize-none transition duration-75 rounded-lg shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-600',
                             'border-gray-300' => ! $errors->has($getStatePath()),
                             'border-danger-600 ring-danger-600' => $errors->has($getStatePath()),
-                        ]) }}
+                        ])
                     ></textarea>
                 </file-attachment>
 

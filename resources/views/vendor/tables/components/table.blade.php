@@ -12,7 +12,7 @@
         </thead>
     @endif
 
-    <tbody class="divide-y whitespace-nowrap">
+    <tbody class="divide-y">
         {{ $slot }}
     </tbody>
 

@@ -1,7 +1,5 @@
 <?php
 
-use Filament\AvatarProviders\UiAvatarsProvider;
-use Filament\Http\Livewire\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -55,7 +53,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => Login::class,
+            'login' => \Filament\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -114,6 +112,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Livewire
+    |--------------------------------------------------------------------------
+    |
+    | This is the namespace and directory that Filament will automatically
+    | register Livewire components inside.
+    |
+    */
+
+    'livewire' => [
+        'namespace' => 'App\\Filament',
+        'path' => app_path('Filament'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
@@ -125,7 +138,20 @@ return [
     */
 
     'layout' => [
+        'forms' => [
+            'actions' => [
+                'alignment' => 'left',
+            ],
+        ],
+        'footer' => [
+            'should_show_logo' => false,
+        ],
         'max_content_width' => 'full',
+        'tables' => [
+            'actions' => [
+                'type' => \Filament\Tables\Actions\LinkAction::class,
+            ],
+        ],
     ],
 
     /*
@@ -138,7 +164,7 @@ return [
     |
     */
 
-    'default_avatar_provider' => UiAvatarsProvider::class,
+    'default_avatar_provider' => \Filament\AvatarProviders\UiAvatarsProvider::class,
 
     /*
     |--------------------------------------------------------------------------
