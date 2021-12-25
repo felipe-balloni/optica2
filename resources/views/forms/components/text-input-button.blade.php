@@ -17,7 +17,7 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div class="flex items-center space-x-1 group relative">
+    <div {{ $attributes->merge($getExtraAttributes())->class(['flex items-center space-x-1 group']) }}>
         @if ($label = $getPrefixLabel())
             <span @class($sideLabelClasses)>
                 {{ $label }}
@@ -36,8 +36,8 @@
                     })"
                 type="text"
                 wire:ignore
+                {{ $getExtraAlpineAttributeBag() }}
             @endunless
-            x-ref="input"
             {!! ($autocapitalize = $getAutocapitalize()) ? "autocapitalize=\"{$autocapitalize}\"" : null !!}
             {!! ($autocomplete = $getAutocomplete()) ? "autocomplete=\"{$autocomplete}\"" : null !!}
             {!! $isAutofocused() ? 'autofocus' : null !!}
@@ -52,18 +52,19 @@
             {!! ($placeholder = $getPlaceholder()) ? "placeholder=\"{$placeholder}\"" : null !!}
             {!! ($interval = $getStep()) ? "step=\"{$interval}\"" : null !!}
             {!! $isRequired() ? 'required' : null !!}
-            {{ $attributes->merge($getExtraAttributes())->class([
+            @class([
                 'block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600',
                 'border-gray-300' => ! $errors->has($getStatePath()),
                 'border-danger-600 ring-danger-600' => $errors->has($getStatePath()),
-            ]) }}
+            ])
             />
-            <span class="absolute inset-y-0 right-0 flex items-center pr-2">
+            <span class="absolute inset-y-0 right-0 flex items-center pr-1">
                 <button
                     type="button"
-                    class="p-1 focus:outline-none focus:shadow-outline"
+                    class="p-2 focus:outline-none focus:shadow-outline bg-gray-200"
                     @unless ($isDisabled())
-                        wire:click="getCEP('{{ $getState() }}')"
+                    wire:click="buttonClick('{{ $getState() }}', '{{ $getStatePath() }}')"
+                    wire:loading.class="disabled"
                     @endunless
                 >
                   <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -82,7 +83,7 @@
     @if ($datalistOptions)
         <datalist id="{{ $getId() }}-list">
             @foreach ($datalistOptions as $option)
-                <option value="{{ $option }}"/>
+                <option value="{{ $option }}" />
             @endforeach
         </datalist>
     @endif
