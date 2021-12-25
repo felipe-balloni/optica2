@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 
 class Role extends \Spatie\Permission\Models\Role
 {
-    
+
 //    protected $with = [
 //        'users',
 //    ];
