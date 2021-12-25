@@ -24,7 +24,7 @@
             </span>
         @endif
 
-        <div class="flex-1">
+        <div class="group flex-1 relative rounded-lg overflow-hidden">
             <input
             @unless ($hasMask())
                 {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
@@ -53,37 +53,56 @@
             {!! ($interval = $getStep()) ? "step=\"{$interval}\"" : null !!}
             {!! $isRequired() ? 'required' : null !!}
             @class([
-                'block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600',
+                'block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 z-10',
                 'border-gray-300' => ! $errors->has($getStatePath()),
                 'border-danger-600 ring-danger-600' => $errors->has($getStatePath()),
             ])
             />
-            <span class="absolute inset-y-0 right-0 flex items-center pr-1">
+            <span class="absolute inset-y-0 right-0 items-center">
                 <button
                     type="button"
-                    class="p-2 focus:outline-none focus:shadow-outline bg-gray-200"
+                    class="py-2 px-3 text-white focus:outline-none transition focus:shadow-outline bg-primary-600 rounded-r-lg group-focus-within:ring-2 group-focus-within:ring-inset group-focus-within:ring-primary-600 hover:bg-primary-500 z-0"
                     @unless ($isDisabled())
                     wire:click="buttonClick('{{ $getState() }}', '{{ $getStatePath() }}')"
-                    wire:loading.class="disabled"
+                    wire:loading.attr="disabled"
                     @endunless
                 >
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                       viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <svg class="animate-spin h-6 w-6"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         wire:loading
+                         wire:target="buttonClick">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+
+                    <svg wire:loading.class="hidden"
+                         wire:target="buttonClick"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         stroke-width="2"
+                         viewBox="0 0 24 24"
+                         class="w-6 h-6">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
                 </button>
             </span>
         </div>
 
-        @if ($label = $getPostfixLabel())
-            <span @class($sideLabelClasses)>
+            @if ($label = $getPostfixLabel())
+                <span @class($sideLabelClasses)>
                 {{ $label }}
             </span>
-        @endif
+            @endif
     </div>
 
     @if ($datalistOptions)
         <datalist id="{{ $getId() }}-list">
             @foreach ($datalistOptions as $option)
-                <option value="{{ $option }}" />
+                <option value="{{ $option }}"/>
             @endforeach
         </datalist>
     @endif

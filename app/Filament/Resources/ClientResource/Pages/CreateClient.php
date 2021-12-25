@@ -12,12 +12,22 @@ class CreateClient extends CreateRecord
 
     protected static ?string $title = 'Criar';
 
-    public function getCEP($state)
+    public function buttonClick( string $state, string $path)
     {
-        ray($state);
         $data = ClientAddress::GetAddress($state);
 
-        ray($data, $this->getForms());
+        $id = explode('.', $path);
+
+        if ($data !== 404) {
+//            fn(Closure $set) => $set('data.addresses.14288.address_1', $data['street']);
+
+            $this->data['addresses'][$id[2]]['address_1'] = $data['street'];
+            $this->data['addresses'][$id[2]]['address_2'] = $data['neighborhood'];
+            $this->data['addresses'][$id[2]]['state_id'] = $data['state'];
+            $this->data['addresses'][$id[2]]['city_id'] = $data['city'];
+
+            ray($data, $id, $state, $path);
+        }
 
     }
 
