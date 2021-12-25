@@ -144,12 +144,12 @@ return [
             ],
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
-        'max_content_width' => null,
+        'max_content_width' => '7xl',
         'tables' => [
             'actions' => [
-                'type' => \Filament\Tables\Actions\IconButtonAction::class,
+                'type' => \Filament\Tables\Actions\LinkAction::class,
             ],
         ],
     ],
