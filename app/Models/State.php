@@ -15,10 +15,6 @@ class State extends Model
 
     public $timestamps = false;
 
-    protected $withCount = [
-        'cities',
-    ];
-
     protected $fillable = [
         'state',
         'abbreviation'

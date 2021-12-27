@@ -149,7 +149,7 @@ return [
         'max_content_width' => 'full',
         'tables' => [
             'actions' => [
-                'type' => \Filament\Tables\Actions\LinkAction::class,
+                'type' => \Filament\Tables\Actions\IconButtonAction::class,
             ],
         ],
     ],

@@ -6,10 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "barryvdh/laravel-debugbar": "^3.6",
         "filament/filament": "^2.5",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",

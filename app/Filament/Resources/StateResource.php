@@ -84,21 +84,8 @@ class StateResource extends Resource
         ];
     }
 
-//    public static function getGloballySearchableAttributes(): array
-//    {
-//        return ['state', 'cities.city'];
-//    }
-//
-//    public static function getGlobalSearchResultDetails(Model $record): array
-//    {
-//        return [
-//            'Abr' => $record->abbreviation
-//        ];
-//    }
-//
-//    protected static function getGlobalSearchEloquentQuery(): Builder
-//    {
-//        return parent::getGlobalSearchEloquentQuery()->with(['cities']);
-//    }
-
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query();
+    }
 }
