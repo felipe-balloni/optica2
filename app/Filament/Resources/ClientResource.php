@@ -235,7 +235,7 @@ class ClientResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
-//                    ->limit('17')
+                    ->wrap()
                     ->sortable()
                     ->searchable()
                     ->extraAttributes(['class' => 'break-word max-w-48']),
@@ -285,17 +285,7 @@ class ClientResource extends Resource
     protected function getTableActions(): array
     {
         return [
-            Tables\Actions\IconButtonAction::make('receitas')
-                ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
-                ->icon('heroicon-o-annotation')
-                ->color('success'),
-//            Tables\Actions\IconButtonAction::make('view')
-//                ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
-//                ->icon('heroicon-o-eye'),
-//            Tables\Actions\IconButtonAction::make('edit')
-//                ->url(fn(Client $record): string => static::getUrl('edit', ['record' => $record]))
-//                ->icon('heroicon-o-pencil')
-//                ->color('warning'),
+   
         ];
     }
 

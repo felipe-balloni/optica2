@@ -5,16 +5,20 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 use Closure;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\MorphManyRelationManager;
+use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Support\Str;
 
-class RolesRelationManager extends MorphManyRelationManager
+class RolesRelationManager extends BelongsToManyRelationManager
 {
     protected static string $relationship = 'roles';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $label = 'Função';
+
+    protected static ?string $pluralLabel = 'Funções';
 
     public static function form(Form $form): Form
     {

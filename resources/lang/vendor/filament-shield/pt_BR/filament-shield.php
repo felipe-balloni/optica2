@@ -30,7 +30,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nav.group' => 'Filament Shield',
+    'nav.group' => 'Teb',
     'nav.label' => 'Funções',
     'nav.icon' => 'heroicon-o-shield-check',
     'resource.label.role' => 'Função',

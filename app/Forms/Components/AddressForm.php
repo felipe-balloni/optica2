@@ -31,8 +31,6 @@ class AddressForm extends Forms\Components\Field
         $model = $this->getModel();
         $relationship = $model->{$this->relationship}();
 
-        ray('droga', $state, $model, $relationship);
-
         if ($address = $relationship->first()) {
             $address->update($state);
         } else {

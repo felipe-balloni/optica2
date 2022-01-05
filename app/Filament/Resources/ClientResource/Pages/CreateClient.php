@@ -26,7 +26,6 @@ class CreateClient extends CreateRecord
             $this->data['addresses'][$id[2]]['state_id'] = $data['state'];
             $this->data['addresses'][$id[2]]['city_id'] = $data['city'];
 
-            ray($data, $id, $state, $path);
         }
 
     }

@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
@@ -49,15 +50,19 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('email')
                             ->label('E-mail')
                             ->email()
-                            ->unique(User::class)
+                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
                             ->required(),
-
-//                        Forms\Components\BelongsToManyMultiSelect::make('roles')
-//                            ->label('Funções de usuário')
-//                            ->exists( Role::class)
-//                            ->relationship('roles', 'name')
-//                            ->required(),
                     ]),
+                Forms\Components\Grid::make()
+                    ->schema([
+                    Forms\Components\Toggle::make('is_super_admin')
+                        ->label('Usuário é Super Administrador')
+                        ->hidden(!User::IsSuperAdmin())
+                        ->inline(),
+                    Forms\Components\Toggle::make('is_active')
+                        ->label('Usuário está ativo')
+                        ->inline(),
+                ]),
                 Forms\Components\Fieldset::make('Senhas de acesso')
                     ->schema([
                         Forms\Components\TextInput::make('password')
@@ -73,10 +78,8 @@ class UserResource extends Resource
                             ->required()
                             ->dehydrated(false)
                             ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Usuário está ativo')
-                            ->inline(),
                     ])
+                    ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
             ]);
     }
 

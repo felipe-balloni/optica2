@@ -3,9 +3,9 @@
 return [
 
     'default_roles' => [
-        'super_admin_role_name' => 'super_admin',
+        'super_admin_role_name' => 'administrator',
         'filament_user' => [
-            'role_name' => 'filament_user',
+            'role_name' => 'user',
             'enabled' => true
         ],
     ],

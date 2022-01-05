@@ -26,8 +26,6 @@ class TypeSeeder extends Seeder
             array('name' => 'Optometria', 'used_by' => 'Recipes'),
         ];
 
-        ray($types);
-
         foreach ($types as $type) {
             Type::factory()->create($type);
         }
