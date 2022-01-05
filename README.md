@@ -22,6 +22,12 @@ This package allows you to manage user permissions and roles in a database.
 
 See the [DOCUMENTATION](https://docs.spatie.be/laravel-permission/) for detailed installation and usage instructions.
 
+## Filament Shield
+
+The easiest and most intuitive way to add access management to your Filament Resource Models (more coming soon 😎)
+
+Access the [Repository](https://github.com/bezhanSalleh/filament-shield) by [Bezhan Salleh](https://github.com/bezhanSalleh), to check all the documentation.
+
 ## Installation
 
 Clone the repo locally:
@@ -51,10 +57,10 @@ php artisan key:generate
 
 Create an SQLite database or use another database (MySQL, Postgres) and configure your .env accordingly.
 
-Run database migrations with seed:
+Run database migrations with seed and permissions:
 
 ```sh
-php artisan migrate --seed
+php artisan migrate --seed && php artisan shield:generate
 ```
 
 Run the dev server (the output will give the address):
@@ -79,10 +85,14 @@ Administrator
 
 Users
 
-    User don't have any permission (yet).
-
 - **Username:** user1@test.com
 - **Password:** password
+
+
+- **Username:** user2@test.com (_inactive_)
+- **Password:** password
+
+`Users and Administrator don't have any permission (yet). You need to enter with Super Administrador to setup then.`
 
 ## Note:
 The application is configured with the pt_BR language and America/Sao_Paulo time zone. If necessary, please remember to change it in the config/app.php configuration file

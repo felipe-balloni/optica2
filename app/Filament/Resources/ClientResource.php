@@ -285,7 +285,7 @@ class ClientResource extends Resource
     protected function getTableActions(): array
     {
         return [
-   
+            //
         ];
     }
 
