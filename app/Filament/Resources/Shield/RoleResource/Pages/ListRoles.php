@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\RoleResource\Pages;
+namespace App\Filament\Resources\Shield\RoleResource\Pages;
 
-use App\Filament\Resources\RoleResource;
+use App\Filament\Resources\Shield\RoleResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -12,9 +12,6 @@ class ListRoles extends ListRecords
 
     protected function getTableQuery(): Builder
     {
-        return parent::getTableQuery()
-            ->withCount([
-                'users',
-            ]);
+        return static::getResource()::getEloquentQuery()->withCount('permissions');
     }
 }

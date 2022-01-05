@@ -3,16 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 use App\Models\User;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
@@ -51,11 +51,12 @@ class UserResource extends Resource
                             ->email()
                             ->unique(User::class)
                             ->required(),
-                        Forms\Components\BelongsToManyMultiSelect::make('roles')
-                            ->label('Função de usuário')
-                            ->exists( Role::class)
-                            ->relationship('roles', 'name')
-                            ->required(),
+
+//                        Forms\Components\BelongsToManyMultiSelect::make('roles')
+//                            ->label('Funções de usuário')
+//                            ->exists( Role::class)
+//                            ->relationship('roles', 'name')
+//                            ->required(),
                     ]),
                 Forms\Components\Fieldset::make('Senhas de acesso')
                     ->schema([
@@ -64,17 +65,15 @@ class UserResource extends Resource
                             ->password()
                             ->rules(['confirmed'])
                             ->dehydrateStateUsing( fn ($state) => Hash::make($state))
+                            ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser)
                             ->required(),
                         Forms\Components\TextInput::make('password_confirmation')
                             ->label('Confirme a senha')
                             ->password()
                             ->required()
-                            ->dehydrated(false),
-                        Forms\Components\Checkbox::make('is_super_admin')
-                            ->label('Permissão especial Super Admin')
-                            ->hidden(!User::IsSuperAdmin())
-                            ->inline(),
-                        Forms\Components\Checkbox::make('is_active')
+                            ->dehydrated(false)
+                            ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
+                        Forms\Components\Toggle::make('is_active')
                             ->label('Usuário está ativo')
                             ->inline(),
                     ])
@@ -98,7 +97,7 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\BadgeColumn::make('roles')
-                    ->formatStateUsing(fn ($state): string => $state->implode('name', ',')),
+                    ->formatStateUsing(fn ($state): string => $state->implode('name', ', ')),
                 Tables\Columns\BooleanColumn::make('is_super_admin')
                     ->label('Super Admin'),
                 Tables\Columns\BooleanColumn::make('is_active')
@@ -114,7 +113,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RolesRelationManager::class,
         ];
     }
 

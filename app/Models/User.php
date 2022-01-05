@@ -68,7 +68,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     public static function isSuperAdmin () : bool
     {
-        return Auth::user()->is_super_admin;
+        return Auth::user()->hasRole('super_admin');
     }
 
     public function getFilamentAvatarUrl(): ?string
