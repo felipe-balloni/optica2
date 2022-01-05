@@ -20,45 +20,45 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
 
-        $actions = [
-            'Listar',
-            'Ver',
-            'Criar',
-            'Editar',
-            'Excluir',
-            'Excluir múltiplos',
-            'Restaurar',
-            'Excluir permanentemente'
-        ];
-
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-        // create permissions for Users
-        foreach ($actions as $action){
-            Permission::create(['name' => "{$action} usuários"]);
-        };
-
-        // create permissions for Roles
-        foreach ($actions as $action){
-            Permission::create(['name' => "{$action} funções de usuário e permissões"]);
-        };
-
-        // create permissions for States and Cities
-        foreach ($actions as $action){
-            Permission::create(['name' => "{$action} estados e cidades"]);
-        };
-
-        foreach ($actions as $action){
-            Permission::create(['name' => "{$action} tipos"]);
-        };
-
-        $userSuperAdmin = User::factory()->create([
-            'name' => 'Super Administrador',
-            'email' => 'super.admin@test.com',
-            'is_super_admin' => true,
-            'is_active' => true,
-        ]);
+//        $actions = [
+//            'Listar',
+//            'Ver',
+//            'Criar',
+//            'Editar',
+//            'Excluir',
+//            'Excluir múltiplos',
+//            'Restaurar',
+//            'Excluir permanentemente'
+//        ];
+//
+//        // Reset cached roles and permissions
+//        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+//
+//        // create permissions for Users
+//        foreach ($actions as $action){
+//            Permission::create(['name' => "{$action} usuários"]);
+//        };
+//
+//        // create permissions for Roles
+//        foreach ($actions as $action){
+//            Permission::create(['name' => "{$action} funções de usuário e permissões"]);
+//        };
+//
+//        // create permissions for States and Cities
+//        foreach ($actions as $action){
+//            Permission::create(['name' => "{$action} estados e cidades"]);
+//        };
+//
+//        foreach ($actions as $action){
+//            Permission::create(['name' => "{$action} tipos"]);
+//        };
+//
+//        $userSuperAdmin = User::factory()->create([
+//            'name' => 'Super Administrador',
+//            'email' => 'super.admin@test.com',
+//            'is_super_admin' => true,
+//            'is_active' => true,
+//        ]);
 
         $roleAdmin = Role::create(['name' => 'Administrador']);
 
