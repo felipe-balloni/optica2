@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Shield\RoleResource\Pages;
 
-use App\Filament\Resources\Shield\RoleResource;
 use Filament\Resources\Pages\ViewRecord;
+use App\Filament\Resources\Shield\RoleResource;
 
 class ViewRole extends ViewRecord
 {

@@ -9,6 +9,7 @@ return [
 
     'column.name' => 'Nome',
     'column.guard_name' => 'Guard',
+    'column.roles' => 'Funções',
     'column.permissions' => 'Permissões',
     'column.updated_at' => 'Alterado em',
 
@@ -30,9 +31,25 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nav.group' => 'Teb',
+    'nav.group' => 'Filament Shield',
     'nav.label' => 'Funções',
     'nav.icon' => 'heroicon-o-shield-check',
     'resource.label.role' => 'Função',
     'resource.label.roles' => 'Funções',
+
+        /*
+    |--------------------------------------------------------------------------
+    | Section & Tabs
+    |--------------------------------------------------------------------------
+    */
+    'section' => 'Entidades',
+    'resources' => 'Recursos',
+    'widgets' => 'Widgets',
+    'pages' => 'Páginas',
+    'custom' => 'Permissões customizadas',
+
+    /**
+     * HasPageShield Trait Forbidden Message
+     */
+    'forbidden' => 'Você não tem permissão para acessar',
 ];
