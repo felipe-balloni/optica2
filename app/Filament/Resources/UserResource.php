@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -87,7 +86,7 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('NewAvatar')
+                Tables\Columns\ImageColumn::make('new_avatar')
                     ->label('')
                     ->size(50)
                     ->rounded(),

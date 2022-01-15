@@ -15,7 +15,9 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use geekcom\ValidatorDocs\Rules\Cpf;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class ClientResource extends Resource
@@ -51,17 +53,20 @@ class ClientResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->label('E-mail')
                     ->email()
-                    ->helperText('Nome completo ou Razão social.')
+                    ->helperText('E-mail válido e único no cadastro de clientes.')
                     ->maxLength(255)
+                    ->unique(ignorable: fn (?Model $record): ?Model => $record)
                     ->required(),
-
                 Forms\Components\Fieldset::make('Dados para Pessoa Física')
                     ->when(fn(callable $get) => $get('type_id') == 1)
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cpf')
+                            ->helperText('CPF no formato 000.000.000-00.')
                             ->maxLength(14)
+                            ->rules(['cpf'])
                             ->label('CPF')
+                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00')),
                         Forms\Components\TextInput::make('state_id')
                             ->label('RG')
@@ -69,6 +74,7 @@ class ClientResource extends Resource
                             ->helperText('RG no formato 00.000.000-00'),
                         Forms\Components\TextInput::make('date_birth')
                             ->label('Data de Nascimento')
+                            ->helperText('Data de nascimento no formato dd/mm/yyyy.')
                             ->type('date'),
                         Forms\Components\Select::make('sex')
                             ->id('sex')
@@ -80,14 +86,16 @@ class ClientResource extends Resource
                                 'n' => 'n/a',
                             ]),
                     ]),
-
                 Forms\Components\Fieldset::make('Dados para Pessoa Juridica')
                     ->when(fn(callable $get) => $get('type_id') == 2)
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cnpj')
+                            ->helperText('CPNJ no formato 00.000.000/0000-00.')
                             ->label('CNPJ')
                             ->maxLength(18)
+                            ->rules(['cnpj'])
+                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00')),
                         Forms\Components\TextInput::make('state_id')
                             ->label('Inscrição Estadual')
@@ -95,9 +103,9 @@ class ClientResource extends Resource
                             ->helperText('Inscrição Estadual ou ISENTO se não contribuinte.'),
                         Forms\Components\TextInput::make('date_birth')
                             ->label('Data de abertura')
+                            ->helperText('Data da abertura no formato dd/mm/yyyy.')
                             ->type('date'),
                     ]),
-
                 Forms\Components\HasManyRepeater::make('Telefones')
                     ->label('Telefones')
                     ->relationship('phones')
@@ -107,24 +115,26 @@ class ClientResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('type_id')
                                     ->label('Tipo do telefone')
-                                    ->helperText('Selecione o tipo do endereço.')
+                                    ->helperText('Selecione o tipo do telefone.')
                                     ->options(Type::getTypes('Phones'))
                                     ->default(5)
                                     ->required(),
                                 Forms\Components\TextInput::make('phone')
                                     ->label('Telefone')
+                                    ->helperText('Numero no formato (00) 0000-0000 ou (00) 9000-00000')
                                     ->maxLength(20)
                                     ->tel()
                                     ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('{(00)} 0000-0000[0]') )
                                     ->required(),
                                 Forms\Components\TextInput::make('ext')
                                     ->label('Ext')
+                                    ->helperText('Ramal, se houver.')
                                     ->maxLength(5),
                             ])
                         ->columns(3),
                     ])->createItemButtonLabel('Adicionar telefone')
+                    ->hint('Use o botão "Adicionar telefone" para criar um novo registro ou botão com icone "Lixeira" para excluír.')
                     ->columnSpan(2),
-
                 Forms\Components\HasManyRepeater::make('addresses')
                     ->label('Endereços')
                     ->relationship('addresses')
@@ -141,51 +151,34 @@ class ClientResource extends Resource
                                 TextInputButton::make('postal_code')
                                     ->label('CEP')
                                     ->helperText('Digite o CEP e clique na lupa para preencher os demais campos.')
-//                                    ->hint('se não encontrar os campos ficarão vazio e podem ser preenchidos manualmente')
                                     ->maxLength(9)
                                     ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000`-000'))
                                     ->reactive()
                                     ->required(),
-//                                Forms\Components\TextInput::make('postal_code')
-//                                    ->label('CEP')
-//                                    ->helperText('Digite o CEP que o sistema irá tentar preencher os demais campos.')
-//                                    //                                    ->maxLength(9)
-//                                    ->reactive()
-//                                    ->afterStateUpdated(function (callable $set, $state) {
-//                                        $set('cep', Str::length($state));
-//                                        if (Str::length($state) === 9) {
-//                                            $data = ClientAddress::GetAddress($state);
-//                                             if ($data !== 404) {
-////                                                $set('address_1', $data['street']);
-////                                                $set('address_2', $data['neighborhood']);
-////                                                $set('state_id', $data['state']);
-////                                                $set('city_id', $data['city']);
-//                                        }
-//                                    })
-//                                    //                                    ->stateBindingModifiers(['lazy'])
-//                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000`-000'))
-//                                    ->required(),
                             ]),
-
                         Forms\Components\Fieldset::make('Endereços')
                             ->schema([
                                 Forms\Components\Grid::make()
                                     ->schema([
                                         Forms\Components\TextInput::make('address_1')
                                             ->label('Endereço')
+                                            ->helperText('Nome da rua, sem número, por favor, usar notação padrão dos correios: Rua, Av., etc.')
                                             ->required()
                                             ->columnSpan(2),
                                         Forms\Components\TextInput::make('number')
                                             ->label('Número')
+                                            ->helperText('Apenas o número ou S/N (sem numero).')
                                             ->required(),
                                     ])
                                     ->columns(3),
                                 Forms\Components\Grid::make()
                                     ->schema([
                                         Forms\Components\TextInput::make('complement')
-                                            ->label('Complemento'),
+                                            ->label('Complemento')
+                                            ->helperText('Complemento do endereço, exemplo: Apto 10, sala 01, etc.'),
                                         Forms\Components\TextInput::make('address_2')
                                             ->label('Bairro')
+                                            ->helperText('Nome do Bairro, por favor, usar notação padrão dos correios: Jd., Res., etc.')
                                             ->required(),
                                         Forms\Components\Select::make('state_id')
                                             ->label('Estado')
@@ -200,6 +193,7 @@ class ClientResource extends Resource
                                             ->required(),
                                         Forms\Components\Select::make('city_id')
                                             ->label('Cidade')
+                                            ->helperText('Selecione a cidade.')
                                             ->options(function (callable $get) {
                                                 if ($get('state_id')) {
                                                     return City::getCitiesOfState((int)$get('state_id'))->pluck('city', 'id');
@@ -211,18 +205,20 @@ class ClientResource extends Resource
                                 Forms\Components\Textarea::make('comments')
                                     ->rows(1)
                                     ->label('Observação geral')
+                                    ->helperText('Observações relativas ao endereço, exemplos: ponto de referencias, etc.')
                                     ->columnSpan(2),
                             ])
                     ])
                     ->createItemButtonLabel('Adicionar endereço')
+                    ->hint('Use o botão "Adicionar endereço" para criar um novo registro ou botão com icone "Lixeira" para excluír.')
                     ->columnSpan(2),
-
                 Forms\Components\Toggle::make('defaulter')
                     ->label('Inadimplente')
                     ->helperText('Marcar este campo irá destacar a linha do cliente nas listagens.')
                     ->default(0),
                 Forms\Components\Textarea::make('comments')
-                    ->label('Observação geral')
+                    ->label('Observações gerais')
+                    ->helperText('Observações geral sobre este cliente.'),
             ]);
     }
 

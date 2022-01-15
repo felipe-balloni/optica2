@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -87,6 +88,13 @@ class ClientAddress extends Model
             'city' => City::getCitiesOfState($this->state_id)->get($this->city_id)->city,
 //            'city' => 1,
         ];
+    }
+
+    protected function postalCode(): Attribute
+    {
+        return new Attribute(
+            set: fn($value) => preg_replace("/(\d{5})(\d{3})/", "\$1-\$2", '13486022'),
+        );
     }
 
 }

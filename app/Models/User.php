@@ -8,6 +8,7 @@ use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,6 +60,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'roles',
     ];
 
+    protected $appends = ['new_avatar'];
+
     protected static function booted()
     {
         static::created( function () {
@@ -81,9 +84,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->is_active;
     }
 
-    public function getNewAvatarAttribute(): ?string
+    protected function newAvatar(): Attribute
     {
-        return Filament::getUserAvatarUrl($this);
+        return new Attribute(
+            get: fn () => Filament::getUserAvatarUrl($this),
+        );
     }
 
 }
