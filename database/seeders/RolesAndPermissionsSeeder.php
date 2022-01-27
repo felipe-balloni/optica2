@@ -34,7 +34,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'name' => 'Administrador',
             'email' => 'admin@test.com',
             'is_active' => true,
-         ])->assignRole($roleAdmin);
+        ])->assignRole($roleAdmin);
 
         $user1 = User::factory()->create([
             'name' => 'Usuário ativo',

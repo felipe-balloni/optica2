@@ -23,9 +23,7 @@ class CreateClientAddressesTable extends Migration
             $table->string('complement', 50)->nullable();
             $table->string('address_2')->nullable();
             $table->foreignIdFor(\App\Models\State::class)->constrained();
-            $table->string('estado')->nullable();;
             $table->foreignIdFor(\App\Models\City::class)->constrained();
-            $table->string('cidade')->nullable();
             $table->text('comments')->nullable();
             $table->softDeletes();
             $table->timestamps();
