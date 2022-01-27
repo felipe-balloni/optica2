@@ -29,16 +29,21 @@ class Type extends Model
 
     protected static function booted(): void
     {
-        static::created( function () {
-            Cache::forget('types');
-            Cache::rememberForever('types', fn() => self::all());
+        static::created(function ($type) {
+            Cache::forget('types::of::' . $type->used_by);
+        });
+
+        static::updated(function ($type) {
+            Cache::forget('types::of::' . $type->used_by);
+        });
+
+        static::deleted(function ($type) {
+            Cache::forget('types::of::' . $type->used_by);
         });
     }
 
     public static function getTypes(string $model): mixed
     {
-        return Cache::rememberForever('types::of::' .  $model, fn() => self::where('used_by', $model)->pluck('name', 'id'));
+        return Cache::rememberForever('types::of::' .  $model, fn () => self::where('used_by', $model)->pluck('name', 'id'));
     }
-
-
 }

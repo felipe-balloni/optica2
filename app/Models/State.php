@@ -22,9 +22,16 @@ class State extends Model
 
     protected static function booted()
     {
-        static::created( function () {
+        static::created(function () {
             Cache::forget('states');
-            self::getState();
+        });
+
+        static::updated(function () {
+            Cache::forget('states');
+        });
+
+        static::deleted(function () {
+            Cache::forget('states');
         });
     }
 
@@ -33,8 +40,8 @@ class State extends Model
         return $this->hasMany(City::class);
     }
 
-    public static function getState () {
-        return Cache::rememberForever('states', fn() => self::all());
+    public static function getState()
+    {
+        return Cache::rememberForever('states', fn () => self::all());
     }
-
 }

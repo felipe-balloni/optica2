@@ -22,9 +22,19 @@ class City extends Model
 
     protected static function booted()
     {
-        static::created( function () {
+        static::created(function ($city) {
+            Cache::forget('cities::of::state::' . $city->state_id);
             Cache::forget('cities');
-            self::getCities();
+        });
+
+        static::updated(function ($city) {
+            Cache::forget('cities::of::state::' . $city->state_id);
+            Cache::forget('cities');
+        });
+
+        static::deleted(function ($city) {
+            Cache::forget('cities::of::state:::' . $city->state_id);
+            Cache::forget('cities');
         });
     }
 
@@ -35,13 +45,12 @@ class City extends Model
 
     public static function getCities(): Collection
     {
-        return Cache::rememberForever('cities', fn() => self::all());
+        return Cache::rememberForever('cities', fn () => self::all());
     }
 
 
     public static function getCitiesOfState(int $state_id): mixed
     {
-        return Cache::remember('cities::of::state::' . $state_id, 60, fn() => self::getCities()->where('state_id', $state_id));
+        return Cache::rememberForever('cities::of::state::' . $state_id, fn () => self::getCities()->where('state_id', $state_id));
     }
-
 }
