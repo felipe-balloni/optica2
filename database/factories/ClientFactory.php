@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClientFactory extends Factory
@@ -23,7 +24,6 @@ class ClientFactory extends Factory
             'sex' => 'n',
             'defaulter' => 0,
             'comments' => $this->faker->paragraph(3, true),
-            'user_id' => 1
         ];
     }
 }

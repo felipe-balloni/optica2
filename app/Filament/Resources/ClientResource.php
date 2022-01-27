@@ -52,30 +52,30 @@ class ClientResource extends Resource
                     ->reactive(),
                 Forms\Components\TextInput::make('email')
                     ->label('E-mail')
-                    ->email()
                     ->helperText('E-mail válido e único no cadastro de clientes.')
+                    ->email()
                     ->maxLength(255)
                     ->unique(ignorable: fn (?Model $record): ?Model => $record)
                     ->required(),
                 Forms\Components\Fieldset::make('Dados para Pessoa Física')
-                    ->when(fn(callable $get) => $get('type_id') == 1)
+                    ->when(fn (callable $get) => $get('type_id') == 1)
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cpf')
+                            ->label('CPF')
                             ->helperText('CPF no formato 000.000.000-00.')
                             ->maxLength(14)
                             ->rules(['cpf'])
-                            ->label('CPF')
                             ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00')),
+                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00')),
                         Forms\Components\TextInput::make('state_id')
                             ->label('RG')
-                            ->maxLength(15)
-                            ->helperText('RG no formato 00.000.000-00'),
+                            ->helperText('RG no formato 00.000s.000-00')
+                            ->maxLength(15),
                         Forms\Components\TextInput::make('date_birth')
                             ->label('Data de Nascimento')
-                            ->helperText('Data de nascimento no formato dd/mm/yyyy.')
-                            ->type('date'),
+                            ->type('date')
+                            ->helperText('Data de nascimento no formato dd/mm/aaaa.'),
                         Forms\Components\Select::make('sex')
                             ->id('sex')
                             ->label('Sexo')
@@ -87,7 +87,7 @@ class ClientResource extends Resource
                             ]),
                     ]),
                 Forms\Components\Fieldset::make('Dados para Pessoa Juridica')
-                    ->when(fn(callable $get) => $get('type_id') == 2)
+                    ->when(fn (callable $get) => $get('type_id') == 2)
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cnpj')
@@ -96,7 +96,7 @@ class ClientResource extends Resource
                             ->maxLength(18)
                             ->rules(['cnpj'])
                             ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00')),
+                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00')),
                         Forms\Components\TextInput::make('state_id')
                             ->label('Inscrição Estadual')
                             ->maxLength(20)
@@ -124,14 +124,14 @@ class ClientResource extends Resource
                                     ->helperText('Numero no formato (00) 0000-0000 ou (00) 9000-00000')
                                     ->maxLength(20)
                                     ->tel()
-                                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('{(00)} 0000-0000[0]') )
+                                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('{(00)} 0000-0000[0]'))
                                     ->required(),
                                 Forms\Components\TextInput::make('ext')
                                     ->label('Ext')
                                     ->helperText('Ramal, se houver.')
                                     ->maxLength(5),
                             ])
-                        ->columns(3),
+                            ->columns(3),
                     ])->createItemButtonLabel('Adicionar telefone')
                     ->hint('Use o botão "Adicionar telefone" para criar um novo registro ou botão com icone "Lixeira" para excluír.')
                     ->columnSpan(2),
@@ -152,7 +152,7 @@ class ClientResource extends Resource
                                     ->label('CEP')
                                     ->helperText('Digite o CEP e clique na lupa para preencher os demais campos.')
                                     ->maxLength(9)
-                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000`-000'))
+                                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00000`-000'))
                                     ->reactive()
                                     ->required(),
                             ]),
@@ -184,7 +184,7 @@ class ClientResource extends Resource
                                             ->label('Estado')
                                             ->helperText('Selecione o estado.')
                                             ->options(
-                                                State::getState()->pluck('state', 'id')
+                                                State::all()->pluck('state', 'id')
                                             )
                                             ->reactive()
                                             ->afterStateUpdated(function (callable $set) {
@@ -194,6 +194,7 @@ class ClientResource extends Resource
                                         Forms\Components\Select::make('city_id')
                                             ->label('Cidade')
                                             ->helperText('Selecione a cidade.')
+                                            ->hint('selecione o Estado primeiro')
                                             ->options(function (callable $get) {
                                                 if ($get('state_id')) {
                                                     return City::getCitiesOfState((int)$get('state_id'))->pluck('city', 'id');
@@ -258,24 +259,23 @@ class ClientResource extends Resource
             ])
             ->filters([
                 Tables\Filters\Filter::make('defaulter')
-                    ->query(fn(Builder $query): Builder => $query->where('defaulter', true))
+                    ->query(fn (Builder $query): Builder => $query->where('defaulter', true))
                     ->label('Inadimplente')
             ])
             ->actions([
                 Tables\Actions\IconButtonAction::make('receitas')
-                    ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
+                    ->url(fn (Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-annotation')
                     ->color('success'),
                 Tables\Actions\IconButtonAction::make('view')
-                    ->url(fn(Client $record): string => static::getUrl('view', ['record' => $record]))
+                    ->url(fn (Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
                 Tables\Actions\IconButtonAction::make('edit')
-                    ->url(fn(Client $record): string => static::getUrl('edit', ['record' => $record]))
+                    ->url(fn (Client $record): string => static::getUrl('edit', ['record' => $record]))
                     ->icon('heroicon-o-pencil')
                     ->color('warning'),
             ])
-            ->defaultSort('id', 'desc')
-            ;
+            ->defaultSort('id', 'desc');
     }
 
     protected function getTableActions(): array
@@ -288,7 +288,7 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-//            RelationManagers\ClientRelationManager::class,
+            //            RelationManagers\ClientRelationManager::class,
         ];
     }
 

@@ -36,12 +36,12 @@ class Client extends Model
     ];
 
     protected $dates = [
-      'date_birth',
+        'date_birth',
     ];
 
     protected static function booted()
     {
-        static::creating( fn($client) => $client->user_id = Auth::id());
+        static::creating(fn ($client) => $client->user_id = Auth::id());
     }
 
     public function user(): BelongsTo
@@ -64,9 +64,10 @@ class Client extends Model
         return $this->hasMany(ClientPhone::class);
     }
 
-    public function getDateBirthAttribute($value): string
+    protected function DateBirth(): Attribute
     {
-        return Carbon::create($value)->format('Y-m-d');
+        return new Attribute(
+            get: fn ($value) => Carbon::create($value)->format('Y-m-d'),
+        );
     }
-
 }
