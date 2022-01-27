@@ -50,6 +50,10 @@ class StateResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('#')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('state')
                     ->label('Estado')
                     ->searchable()

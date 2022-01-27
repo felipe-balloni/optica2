@@ -11,12 +11,4 @@ use Illuminate\Support\Facades\Cache;
 class ListStates extends ListRecords
 {
     protected static string $resource = StateResource::class;
-
-    protected function getTableQuery(): Builder
-    {
-        return parent::getTableQuery()
-            ->withCount([
-                'cities',
-            ]);
-    }
 }
