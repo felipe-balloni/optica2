@@ -184,7 +184,7 @@ class ClientResource extends Resource
                                             ->label('Estado')
                                             ->helperText('Selecione o estado.')
                                             ->options(
-                                                State::all()->pluck('state', 'id')
+                                                State::getState()->pluck('state', 'id')
                                             )
                                             ->reactive()
                                             ->afterStateUpdated(function (callable $set) {
