@@ -5,6 +5,7 @@ namespace App\Providers;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\TelescopeServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
@@ -29,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
             Filament::registerTheme(mix('css/app.css'));
         });
 
-        Model::preventLazyLoading(! app()->isProduction());
+        Model::preventLazyLoading(!app()->isProduction());
     }
 }
