@@ -22,13 +22,10 @@ class TypeSeeder extends Seeder
             array('name' => 'Celular', 'used_by' => 'Phones'),
             array('name' => 'Residencial', 'used_by' => 'Addresses'),
             array('name' => 'Comercial', 'used_by' => 'Addresses'),
-            array('name' => 'Oftalmologista', 'used_by' => 'Recipes'),
-            array('name' => 'Optometria', 'used_by' => 'Recipes'),
         ];
 
         foreach ($types as $type) {
             Type::factory()->create($type);
         }
-
     }
 }
