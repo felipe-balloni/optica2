@@ -13,7 +13,7 @@ class CreateClient extends CreateRecord
 
     protected static ?string $title = 'Criar';
 
-    public function buttonClick( string $state, string $path)
+    public function buttonClick(string $state, string $path)
     {
         $data = ClientAddress::GetAddress($state);
 
@@ -27,10 +27,9 @@ class CreateClient extends CreateRecord
         }
 
         $this->notify('danger', __('CEP não encontrado na base de dados!'));
-
     }
 
-    protected function mutateFormDataBeforeSave(array $data): array
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (Str::length($data['federal_id']) === 11) {
             $data['federal_id'] = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $data['federal_id']);
@@ -39,5 +38,4 @@ class CreateClient extends CreateRecord
         }
         return $data;
     }
-
 }
