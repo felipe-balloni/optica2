@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -35,50 +34,64 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make()
-                    ->columns(1)
+                Forms\Components\Fieldset::make('Informações pessoais')
+                    ->columns([
+                        'sm' => 1,
+                    ])
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->label('Nome')
-                            ->required(),
-                        Forms\Components\FileUpload::make('avatar')
-                            ->label('Avatar')
-                            ->directory('users')
-                            ->image()
-                            ->imagePreviewHeight('180'),
-                        Forms\Components\TextInput::make('email')
-                            ->label('E-mail')
-                            ->email()
-                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                            ->required(),
+                        Forms\Components\Grid::make(1)
+                            ->columnSpan(1)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nome')
+                                    ->required(),
+                                Forms\Components\TextInput::make('email')
+                                    ->label('E-mail')
+                                    ->email()
+                                    ->unique(ignorable: fn (?Model $record): ?Model => $record)
+                                    ->required(),
+                            ]),
+                        Forms\Components\Grid::make(1)
+                            ->columnSpan(1)
+                            ->schema([
+                                Forms\Components\FileUpload::make('avatar')
+                                    ->label('Avatar')
+                                    ->directory('users')
+                                    ->image(),
+                            ]),
                     ]),
-                Forms\Components\Grid::make()
-                    ->schema([
-                    Forms\Components\Toggle::make('is_super_admin')
-                        ->label('Usuário é Super Administrador')
-                        ->hidden(!User::IsSuperAdmin())
-                        ->inline(),
-                    Forms\Components\Toggle::make('is_active')
-                        ->label('Usuário está ativo')
-                        ->inline(),
-                ]),
-                Forms\Components\Fieldset::make('Senhas de acesso')
+
+                Forms\Components\Fieldset::make('Senhas e configuração de acesso')
                     ->schema([
                         Forms\Components\TextInput::make('password')
                             ->label('Senha')
                             ->password()
                             ->rules(['confirmed'])
-                            ->dehydrateStateUsing( fn ($state) => Hash::make($state))
-                            ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser)
-                            ->required(),
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => !is_null($state))
+                            ->required(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
                         Forms\Components\TextInput::make('password_confirmation')
                             ->label('Confirme a senha')
                             ->password()
                             ->required()
                             ->dehydrated(false)
-                            ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
-                    ])
-                    ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
+                            ->required(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
+                        Forms\Components\Grid::make(1)
+                            ->columnSpan(1)
+                            ->schema([
+                                Forms\Components\Toggle::make('is_super_admin')
+                                    ->label('Usuário é Super Administrador')
+                                    ->hidden(!User::IsSuperAdmin())
+                                    ->inline(),
+                                Forms\Components\Toggle::make('is_active')
+                                    ->label('Usuário está ativo')
+                                    ->inline(),
+                            ]),
+                        Forms\Components\BelongsToManyMultiSelect::make('Funções')
+                            ->label('Funções')
+                            ->relationship('roles', 'name')
+                            ->columns(1),
+                    ]),
             ]);
     }
 
@@ -115,7 +128,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RolesRelationManager::class,
+            //
         ];
     }
 
@@ -127,5 +140,4 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-
 }

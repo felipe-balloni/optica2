@@ -263,10 +263,6 @@ class ClientResource extends Resource
                     ->label('Inadimplente')
             ])
             ->actions([
-                Tables\Actions\IconButtonAction::make('receitas')
-                    ->url(fn (Client $record): string => static::getUrl('view', ['record' => $record]))
-                    ->icon('heroicon-o-annotation')
-                    ->color('success'),
                 Tables\Actions\IconButtonAction::make('view')
                     ->url(fn (Client $record): string => static::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
