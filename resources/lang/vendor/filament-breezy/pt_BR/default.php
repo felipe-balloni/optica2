@@ -34,6 +34,11 @@ return [
             "submit" => [
                 "label" => "Atualizar",
             ],
+            "fields" => [
+                "name" => "Nome",
+                "email" => "E-mail",
+            ],
+            "notify" => "Perfil atualizado com sucesso!",
         ],
         "password" => [
             "heading" => "Senha",
@@ -41,6 +46,12 @@ return [
             "submit" => [
                 "label" => "Atualizar",
             ],
+            "fields" => [
+
+                "new_password" => "Nova senha",
+                "new_password_confirmation" => "Confirme a senha",
+            ],
+            "notify" => "Senha alterada com sucesso!"
         ],
     ],
 ];

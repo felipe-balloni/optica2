@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     | Whether or not to automatically register the My Profile page. Set this to false to extend and create your own page.
     */
-    "enable_profile_page" => true,
+    "enable_profile_page" => false,
     /*
     | Set an array that's compatible with the Filament Forms rules() method. You can also pass an instance of \Illuminate\Validation\Rules\Password::class. Rules for required and confirmed are already set. These rules will apply to the My Profile, registration, and password reset forms.
     */
