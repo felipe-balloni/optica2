@@ -5,10 +5,11 @@ namespace App\Filament\Pages;
 use Filament\Forms;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use JeffGreco13\FilamentBreezy\Pages\MyProfile;
+// use JeffGreco13\FilamentBreezy\Pages\MyProfile;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
+use Filament\Pages\Page;
 
-class Profile extends MyProfile
+class Profile extends Page
 {
     use HasPageShield;
 
@@ -31,8 +32,10 @@ class Profile extends MyProfile
             Forms\Components\TextInput::make("name")
                 ->label(__('filament-breezy::default.profile.personal_info.fields.name'))
                 ->required(),
-            Forms\Components\TextInput::make("email")->unique(ignorable: $this->user)
+            Forms\Components\TextInput::make("email")
+                ->unique(ignorable: $this->user)
                 ->label(__('filament-breezy::default.profile.personal_info.fields.email'))
+                ->disabled()
                 ->required(),
             Forms\Components\FileUpload::make('avatar')
                 ->label('Avatar')
@@ -53,7 +56,7 @@ class Profile extends MyProfile
             Forms\Components\TextInput::make("new_password")
                 ->label(__('filament-breezy::default.profile.password.fields.new_password'))
                 ->password()
-                ->rules(config('filament-breezy.password_rules'))
+                ->rules(['confirmed', 'required_with:current_password', 'min:8'])
                 ->required(),
             Forms\Components\TextInput::make("new_password_confirmation")
                 ->label(__('filament-breezy::default.profile.password.fields.new_password_confirmation'))

@@ -62,9 +62,11 @@ class StateResource extends Resource
                     ->label('Abr')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cities_count')
+                Tables\Columns\BadgeColumn::make('cities_count')
                     ->label('Cidades')
-                    ->sortable(),
+                    ->counts('cities')
+                    ->colors(['success'])
+                    ->sortable()
             ])
             ->filters([
                 //

@@ -29,13 +29,10 @@ class CreateClient extends CreateRecord
         $this->notify('danger', __('CEP não encontrado na base de dados!'));
     }
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function getRedirectUrl(): ?string
     {
-        if (Str::length($data['federal_id']) === 11) {
-            $data['federal_id'] = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $data['federal_id']);
-        } else if (Str::length($data['federal_id']) === 14) {
-            $data['federal_id'] = preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $data['federal_id']);
-        }
-        return $data;
+        $resource = static::getResource();
+
+        return $resource::getUrl();
     }
 }

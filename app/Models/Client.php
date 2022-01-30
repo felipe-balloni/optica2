@@ -70,4 +70,30 @@ class Client extends Model
             get: fn ($value) => Carbon::create($value)->format('Y-m-d'),
         );
     }
+
+    protected function FederalId(): Attribute
+    {
+        return new Attribute(
+            get: function ($value) {
+                if (Str::length($value) === 11) {
+                    return self::formatCPF($value);
+                }
+                if (Str::length($value) === 14) {
+                    return self::formatCNPJ($value);
+                }
+                return $value;
+            },
+            set: fn ($value) => isset($value) ? preg_replace('/[^0-9]/', '', $value) : null,
+        );
+    }
+
+    private static function formatCPF(string $value): string
+    {
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $value);
+    }
+
+    private static function formatCNPJ(string $value): string
+    {
+        return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $value);;
+    }
 }

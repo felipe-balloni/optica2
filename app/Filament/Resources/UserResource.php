@@ -112,7 +112,8 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\BadgeColumn::make('roles')
-                    ->formatStateUsing(fn ($state): string => $state->implode('name', ', ')),
+                    ->formatStateUsing(fn ($state): string => $state->implode('name', ', '))
+                    ->colors(['danger']),
                 Tables\Columns\BooleanColumn::make('is_super_admin')
                     ->label('Super Admin'),
                 Tables\Columns\BooleanColumn::make('is_active')
