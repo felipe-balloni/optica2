@@ -2,23 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClientResource\Pages;
-use App\Forms\Components\TextInputButton;
-use App\Forms\Concerns\HasButton;
-use App\Models\City;
-use App\Models\Client;
-use App\Models\ClientAddress;
-use App\Models\State;
-use App\Models\Type;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\City;
+use App\Models\Type;
 use Filament\Tables;
-use geekcom\ValidatorDocs\Rules\Cpf;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\State;
+use App\Models\Client;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use App\Forms\Concerns\HasButton;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use App\Forms\Components\TextInputButton;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ClientResource\Pages;
 
 class ClientResource extends Resource
 {
@@ -41,7 +38,6 @@ class ClientResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nome')
                     ->helperText('Nome completo ou Razão social.')
-                    ->maxLength(255)
                     ->required(),
                 Forms\Components\Select::make('type_id')
                     ->label('Tipo do cliente')
@@ -54,7 +50,6 @@ class ClientResource extends Resource
                     ->label('E-mail')
                     ->helperText('E-mail válido e único no cadastro de clientes.')
                     ->email()
-                    ->maxLength(255)
                     ->unique(ignorable: fn (?Model $record): ?Model => $record)
                     ->required(),
                 Forms\Components\Fieldset::make('Dados para Pessoa Física')
@@ -65,12 +60,12 @@ class ClientResource extends Resource
                             ->label('CPF')
                             ->helperText('CPF no formato 000.000.000-00.')
                             ->maxLength(14)
+                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00'))
                             ->rules(['cpf'])
-                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('000.000.000-00')),
+                            ->unique(ignorable: fn ($record) => $record),
                         Forms\Components\TextInput::make('state_id')
                             ->label('RG')
-                            ->helperText('RG no formato 00.000s.000-00')
+                            ->helperText('RG no formato 00.000.000-00')
                             ->maxLength(15),
                         Forms\Components\TextInput::make('date_birth')
                             ->label('Data de Nascimento')
@@ -91,12 +86,12 @@ class ClientResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('federal_id')
                             ->id('cnpj')
-                            ->helperText('CPNJ no formato 00.000.000/0000-00.')
                             ->label('CNPJ')
+                            ->helperText('CPNJ no formato 00.000.000/0000-00.')
                             ->maxLength(18)
+                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00'))
                             ->rules(['cnpj'])
-                            ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                            ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask->pattern('00.000.000/0000-00')),
+                            ->unique(ignorable: fn ($record) => $record),
                         Forms\Components\TextInput::make('state_id')
                             ->label('Inscrição Estadual')
                             ->maxLength(20)
@@ -109,7 +104,7 @@ class ClientResource extends Resource
                 Forms\Components\HasManyRepeater::make('Telefones')
                     ->label('Telefones')
                     ->relationship('phones')
-                    ->defaultItems(1)
+                    ->defaultItems(0)
                     ->schema([
                         Forms\Components\Grid::make()
                             ->schema([
@@ -138,7 +133,7 @@ class ClientResource extends Resource
                 Forms\Components\HasManyRepeater::make('addresses')
                     ->label('Endereços')
                     ->relationship('addresses')
-                    ->defaultItems(1)
+                    ->defaultItems(0)
                     ->schema([
                         Forms\Components\Grid::make()
                             ->schema([
@@ -234,22 +229,14 @@ class ClientResource extends Resource
                     ->label('Nome')
                     ->wrap()
                     ->sortable()
-                    ->searchable()
-                    ->extraAttributes(['class' => 'break-word max-w-48']),
+                    ->searchable(),
                 Tables\Columns\BadgeColumn::make('type.name')
                     ->label('Tipo pessoa')
                     ->searchable()
-                    ->colors(['success'])
-                    ->extraAttributes(['class' => 'whitespace-nowrap']),
+                    ->colors(['success']),
                 Tables\Columns\TextColumn::make('federal_id')
                     ->label('CFP/CNPJ')
-                    ->searchable()
-                    ->extraAttributes(['class' => 'whitespace-nowrap']),
-                Tables\Columns\TextColumn::make('old_id')
-                    ->label('ID ant.')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('sex')
-                    ->label('Receitas'),
                 Tables\Columns\BooleanColumn::make('defaulter')
                     ->trueColor('danger')
                     ->falseColor('success')
