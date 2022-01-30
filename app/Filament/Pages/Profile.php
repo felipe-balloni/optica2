@@ -5,11 +5,11 @@ namespace App\Filament\Pages;
 use Filament\Forms;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-// use JeffGreco13\FilamentBreezy\Pages\MyProfile;
+use JeffGreco13\FilamentBreezy\Pages\MyProfile;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 
-class Profile extends Page
+class Profile extends MyProfile
 {
     use HasPageShield;
 
