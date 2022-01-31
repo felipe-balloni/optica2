@@ -43,38 +43,4 @@ class Profile extends MyProfile
                 ->image(),
         ];
     }
-
-    public function updateProfile()
-    {
-        $this->user->update($this->updateProfileForm->getState());
-        $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
-    }
-
-    protected function getUpdatePasswordFormSchema(): array
-    {
-        return [
-            Forms\Components\TextInput::make("new_password")
-                ->label(__('filament-breezy::default.profile.password.fields.new_password'))
-                ->password()
-                ->rules(['confirmed', 'required_with:current_password', 'min:8'])
-                ->required(),
-            Forms\Components\TextInput::make("new_password_confirmation")
-                ->label(__('filament-breezy::default.profile.password.fields.new_password_confirmation'))
-                ->password()
-                ->same("new_password")
-                ->required(),
-        ];
-    }
-
-    public function updatePassword()
-    {
-        $state = $this->updatePasswordForm->getState();
-        $this->user->update([
-            "password" => Hash::make($state["new_password"]),
-        ]);
-        session()->forget("password_hash_web");
-        auth("web")->login($this->user);
-        $this->notify("success", __('filament-breezy::default.profile.password.notify'));
-        $this->reset(["new_password", "new_password_confirmation"]);
-    }
 }

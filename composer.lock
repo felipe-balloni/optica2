@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "akaunting/laravel-money",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/laravel-money.git",
-                "reference": "28bc67ac2c8eaab228ca15ce3e827202e4224196"
+                "reference": "eaa684e940e1fa866276409614f65a5b91279238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/28bc67ac2c8eaab228ca15ce3e827202e4224196",
-                "reference": "28bc67ac2c8eaab228ca15ce3e827202e4224196",
+                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/eaa684e940e1fa866276409614f65a5b91279238",
+                "reference": "eaa684e940e1fa866276409614f65a5b91279238",
                 "shasum": ""
             },
             "require": {
@@ -67,9 +67,9 @@
             ],
             "support": {
                 "issues": "https://github.com/akaunting/laravel-money/issues",
-                "source": "https://github.com/akaunting/laravel-money/tree/2.0.0"
+                "source": "https://github.com/akaunting/laravel-money/tree/2.0.1"
             },
-            "time": "2022-01-18T22:24:58+00:00"
+            "time": "2022-01-31T17:11:27+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -1026,16 +1026,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.9.15",
+            "version": "v2.9.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/admin.git",
-                "reference": "4675595a10783697b347001765aa0a692cc3f6e3"
+                "reference": "951d069c23ad7ddb933e19e68544eb9335a2a9dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/4675595a10783697b347001765aa0a692cc3f6e3",
-                "reference": "4675595a10783697b347001765aa0a692cc3f6e3",
+                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/951d069c23ad7ddb933e19e68544eb9335a2a9dd",
+                "reference": "951d069c23ad7ddb933e19e68544eb9335a2a9dd",
                 "shasum": ""
             },
             "require": {
@@ -1082,20 +1082,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-01-28T21:00:11+00:00"
+            "time": "2022-01-30T14:24:55+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.9.15",
+            "version": "v2.9.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/forms.git",
-                "reference": "0d1ab903845429c2c200119aa953458de61914c2"
+                "reference": "981575bce6aeeb0cc56707f92e3859bbf9d2dc91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/0d1ab903845429c2c200119aa953458de61914c2",
-                "reference": "0d1ab903845429c2c200119aa953458de61914c2",
+                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/981575bce6aeeb0cc56707f92e3859bbf9d2dc91",
+                "reference": "981575bce6aeeb0cc56707f92e3859bbf9d2dc91",
                 "shasum": ""
             },
             "require": {
@@ -1138,20 +1138,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-01-28T21:00:06+00:00"
+            "time": "2022-01-30T14:24:54+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.9.15",
+            "version": "v2.9.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/tables.git",
-                "reference": "7541a30b5bb67087473e9914d54ceb45ed827a09"
+                "reference": "b5484603a76e6851bb7ee33b40d0471759ec1a6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/7541a30b5bb67087473e9914d54ceb45ed827a09",
-                "reference": "7541a30b5bb67087473e9914d54ceb45ed827a09",
+                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/b5484603a76e6851bb7ee33b40d0471759ec1a6a",
+                "reference": "b5484603a76e6851bb7ee33b40d0471759ec1a6a",
                 "shasum": ""
             },
             "require": {
@@ -1191,7 +1191,7 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-01-28T21:00:18+00:00"
+            "time": "2022-01-30T14:24:49+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -1661,16 +1661,16 @@
         },
         {
             "name": "jeffgreco13/filament-breezy",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeffgreco13/filament-breezy.git",
-                "reference": "48ff311d5cd974ba455df32b3cee18ba605150d7"
+                "reference": "4a04b94d63246c63df4a6752cd630ed851cac984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeffgreco13/filament-breezy/zipball/48ff311d5cd974ba455df32b3cee18ba605150d7",
-                "reference": "48ff311d5cd974ba455df32b3cee18ba605150d7",
+                "url": "https://api.github.com/repos/jeffgreco13/filament-breezy/zipball/4a04b94d63246c63df4a6752cd630ed851cac984",
+                "reference": "4a04b94d63246c63df4a6752cd630ed851cac984",
                 "shasum": ""
             },
             "require": {
@@ -1728,7 +1728,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jeffgreco13/filament-breezy/issues",
-                "source": "https://github.com/jeffgreco13/filament-breezy/tree/v1.0.1"
+                "source": "https://github.com/jeffgreco13/filament-breezy/tree/v1.0.2"
             },
             "funding": [
                 {
@@ -1736,7 +1736,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-28T01:37:53+00:00"
+            "time": "2022-01-31T16:53:40+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7718,16 +7718,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "a4b37db6f186b6843474189b424aed6a7cc5de4b"
+                "reference": "5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a4b37db6f186b6843474189b424aed6a7cc5de4b",
-                "reference": "a4b37db6f186b6843474189b424aed6a7cc5de4b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2",
+                "reference": "5b6eb6c8ce65ebdc60b0c0960a676cf76758dbf2",
                 "shasum": ""
             },
             "require": {
@@ -7809,7 +7809,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.3.0"
+                "source": "https://github.com/doctrine/dbal/tree/3.3.1"
             },
             "funding": [
                 {
@@ -7825,7 +7825,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-18T00:13:52+00:00"
+            "time": "2022-01-30T17:50:59+00:00"
         },
         {
             "name": "doctrine/deprecations",
