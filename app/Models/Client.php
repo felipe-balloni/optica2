@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Sex;
 use Carbon\Carbon;
+use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,12 +35,18 @@ class Client extends Model
 
     protected $casts = [
         'date_birth' => 'date',
-        'defaulter' => 'boolean'
+        'defaulter' => 'boolean',
+        'sex' => Sex::class
     ];
 
     protected $dates = [
         'date_birth',
     ];
+
+    public function withFaker(): Generator
+    {
+        return Factory::create('pt_BR');
+    }
 
     protected static function booted()
     {
@@ -94,6 +103,6 @@ class Client extends Model
 
     private static function formatCNPJ(string $value): string
     {
-        return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $value);;
+        return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $value);
     }
 }

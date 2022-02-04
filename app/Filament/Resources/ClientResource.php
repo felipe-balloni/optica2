@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use App\Models\City;
-use App\Models\Type;
-use Filament\Tables;
-use App\Models\State;
-use App\Models\Client;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use App\Forms\Concerns\HasButton;
-use Illuminate\Database\Eloquent\Model;
-use App\Forms\Components\TextInputButton;
-use Illuminate\Database\Eloquent\Builder;
+use App\Enums\Sex;
 use App\Filament\Resources\ClientResource\Pages;
+use App\Forms\Components\TextInputButton;
+use App\Forms\Concerns\HasButton;
+use App\Models\City;
+use App\Models\Client;
+use App\Models\State;
+use App\Models\Type;
+use Filament\Forms;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ClientResource extends Resource
 {
@@ -67,19 +68,23 @@ class ClientResource extends Resource
                             ->label('RG')
                             ->helperText('RG no formato 00.000.000-00')
                             ->maxLength(15),
-                        Forms\Components\TextInput::make('date_birth')
+                        Forms\Components\DatePicker::make('date_birth')
                             ->label('Data de Nascimento')
-                            ->type('date')
                             ->helperText('Data de nascimento no formato dd/mm/aaaa.'),
                         Forms\Components\Select::make('sex')
                             ->id('sex')
                             ->label('Sexo')
-                            ->default('m')
-                            ->options([
-                                'm' => 'Masculino',
-                                'f' => 'Feminino',
-                                'n' => 'n/a',
-                            ]),
+//                            ->default('')
+                            ->options(
+                                collect(Sex::cases())
+                                    ->map(function (Sex $sex) {
+                                        return [
+                                            'name' => __('enums.sex.' . $sex->name),
+                                            'value' => $sex->value,
+                                        ];
+                                    })
+                                    ->pluck('name', 'value')
+                            ),
                     ]),
                 Forms\Components\Fieldset::make('Dados para Pessoa Juridica')
                     ->when(fn (callable $get) => $get('type_id') == 2)
