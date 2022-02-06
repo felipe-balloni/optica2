@@ -24,7 +24,7 @@ class CreateClientsTable extends Migration
             $table->string('federal_id')->nullable();
             $table->string('state_id')->nullable();
             $table->date('date_birth')->nullable();
-            $table->char('sex')->nullable();
+            $table->unsignedInteger('sex')->nullable();
             $table->string('email')->nullable();
             $table->boolean('defaulter')->nullable();
             $table->text('comments')->nullable();
