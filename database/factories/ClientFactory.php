@@ -17,39 +17,27 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'defaulter' => 0,
+            'name' => $this->faker->name('male'),
+            'email' => $this->faker->safeEmail(),
+            'type_id' => '1',
+            'federal_id' => $this->faker->cpf(),
+            'state_id' => $this->faker->rg(),
+            'sex' => Sex::Male->value,
+            'defaulter' => false,
             'comments' => $this->faker->paragraph(3, true),
         ];
-    }
-
-    public function pessoaFisica()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'type_id' => '1',
-                'federal_id' => $this->faker->cpf(),
-                'state_id' => $this->faker->rg(),
-            ];
-        });
     }
 
     public function pessoaJuridica()
     {
         return $this->state(function (array $attributes) {
             return [
+                'name' => $this->faker->company(),
+                'email' => $this->faker->companyEmail(),
                 'type_id' => '2',
                 'federal_id' => $this->faker->cnpj(),
                 'state_id' => 'ISENTO',
-            ];
-        });
-    }
-
-    public function male()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'sex' => Sex::Male->value,
+                'sex' => Sex::NotApplicable->value,
             ];
         });
     }
@@ -58,6 +46,7 @@ class ClientFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'name' => $this->faker->name('female'),
                 'sex' => Sex::Female->value,
             ];
         });
@@ -68,6 +57,15 @@ class ClientFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'sex' => Sex::NotApplicable->value,
+            ];
+        });
+    }
+
+    public function defaulter()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'defaulter' => true,
             ];
         });
     }
