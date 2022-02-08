@@ -24,9 +24,10 @@ class EditClient extends EditRecord
             $this->data['addresses'][$id[2]]['address_2'] = $data['neighborhood'];
             $this->data['addresses'][$id[2]]['state_id'] = $data['state'];
             $this->data['addresses'][$id[2]]['city_id'] = $data['city'];
+        } else {
+            $this->notify('danger', __('CEP não encontrado na base de dados do correios!'));
         }
-
-        $this->notify('danger', __('CEP não encontrado na base de dados!'));
+        $this->notify('success', __('CEP válido!'));
     }
 
     protected function getRedirectUrl(): ?string

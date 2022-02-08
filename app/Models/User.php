@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -85,5 +86,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return new Attribute(
             get: fn () => Filament::getUserAvatarUrl($this),
         );
+    }
+
+    public function clients(): hasMany
+    {
+        return $this->hasMany(Client::class);
     }
 }

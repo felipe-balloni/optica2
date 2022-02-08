@@ -171,12 +171,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Barryvdh\\Debugbar\\": "src/"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1026,16 +1026,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.9.19",
+            "version": "v2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/admin.git",
-                "reference": "7227b5a26571018a35a334569b67a8b1c6ab791c"
+                "reference": "cb6893cecbb6d555092bb7b43d3cae99318691be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/7227b5a26571018a35a334569b67a8b1c6ab791c",
-                "reference": "7227b5a26571018a35a334569b67a8b1c6ab791c",
+                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/cb6893cecbb6d555092bb7b43d3cae99318691be",
+                "reference": "cb6893cecbb6d555092bb7b43d3cae99318691be",
                 "shasum": ""
             },
             "require": {
@@ -1082,20 +1082,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-04T07:20:41+00:00"
+            "time": "2022-02-08T12:12:49+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.9.19",
+            "version": "v2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/forms.git",
-                "reference": "22eee0bf6b368bf14ffb67558e4555b60703116f"
+                "reference": "76e4e2e9224e4e3a48ae8ef935d7445969efd5f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/22eee0bf6b368bf14ffb67558e4555b60703116f",
-                "reference": "22eee0bf6b368bf14ffb67558e4555b60703116f",
+                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/76e4e2e9224e4e3a48ae8ef935d7445969efd5f7",
+                "reference": "76e4e2e9224e4e3a48ae8ef935d7445969efd5f7",
                 "shasum": ""
             },
             "require": {
@@ -1138,20 +1138,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-04T07:20:34+00:00"
+            "time": "2022-02-08T12:12:41+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.9.19",
+            "version": "v2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/tables.git",
-                "reference": "bb9a3caafa93e6d318e79fc83f6622080d961eaf"
+                "reference": "834fecca31788254b716b092b105f8e09906f6ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/bb9a3caafa93e6d318e79fc83f6622080d961eaf",
-                "reference": "bb9a3caafa93e6d318e79fc83f6622080d961eaf",
+                "url": "https://api.github.com/repos/laravel-filament/tables/zipball/834fecca31788254b716b092b105f8e09906f6ea",
+                "reference": "834fecca31788254b716b092b105f8e09906f6ea",
                 "shasum": ""
             },
             "require": {
@@ -1191,7 +1191,7 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-02-03T10:48:30+00:00"
+            "time": "2022-02-08T12:11:43+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -8971,16 +8971,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182"
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/bae7c545bef187884426f042434e561ab1ddb182",
-                "reference": "bae7c545bef187884426f042434e561ab1ddb182",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
+                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
                 "shasum": ""
             },
             "require": {
@@ -9016,9 +9016,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.0"
+                "source": "https://github.com/phar-io/version/tree/3.1.1"
             },
-            "time": "2021-02-23T14:00:09+00:00"
+            "time": "2022-02-07T21:56:48+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -9627,11 +9627,11 @@
                 }
             },
             "autoload": {
-                "classmap": [
-                    "src/"
-                ],
                 "files": [
                     "src/Framework/Assert/Functions.php"
+                ],
+                "classmap": [
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",

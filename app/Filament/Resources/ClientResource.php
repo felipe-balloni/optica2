@@ -51,8 +51,7 @@ class ClientResource extends Resource
                     ->label('E-mail')
                     ->helperText('E-mail válido e único no cadastro de clientes.')
                     ->email()
-                    ->unique(ignorable: fn (?Model $record): ?Model => $record)
-                    ->required(),
+                    ->unique(ignorable: fn (?Model $record): ?Model => $record),
                 Forms\Components\Fieldset::make('Dados para Pessoa Física')
                     ->when(fn (callable $get) => $get('type_id') == 1)
                     ->schema([
@@ -276,7 +275,7 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //            RelationManagers\ClientRelationManager::class,
+            //
         ];
     }
 
