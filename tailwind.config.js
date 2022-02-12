@@ -8,14 +8,14 @@ module.exports = {
         "./resources/**/*.vue",
         "./vendor/filament/**/*.blade.php",
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
-                danger: colors.red,
-                gray: colors.blueGray,
+                danger: colors.orange,
                 primary: colors.sky,
                 success: colors.teal,
-                warning: colors.amber,
+                warning: colors.fuchsia,
             },
             fontFamily: {
                 sans: ['Roboto', ...defaultTheme.fontFamily.sans],

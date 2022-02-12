@@ -12,7 +12,7 @@ class EditClient extends EditRecord
 
     protected static string $resource = ClientResource::class;
 
-    protected function getRedirectUrl(): ?string
+    protected function getRedirectUrl(): string
     {
         $resource = static::getResource();
 

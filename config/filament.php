@@ -129,7 +129,7 @@ return [
         'path' => app_path('Filament/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
-            // Widgets\FilamentInfoWidget::class,
+            Widgets\FilamentInfoWidget::class,
         ],
     ],
 
@@ -150,10 +150,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Dark mode
+    |--------------------------------------------------------------------------
+    |
+    | By enabling this feature, your users are able to select between a light
+    | and dark appearance for the admin panel, or let their system decide.
+    |
+    */
+
+    'dark_mode' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
-    | This is the configuration for the general appearance of the admin panel.
+    | This is the configuration for the general layout of the admin panel.
     |
     | You may configure the max content width from `xl` to `7xl`, or `full`
     | for no max width.
@@ -167,7 +179,7 @@ return [
             ],
         ],
         'footer' => [
-            'should_show_logo' => false,
+            'should_show_logo' => true,
         ],
         'max_content_width' => 'full',
         'tables' => [
