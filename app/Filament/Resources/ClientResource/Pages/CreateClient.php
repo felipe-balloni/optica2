@@ -14,7 +14,7 @@ class CreateClient extends CreateRecord
 
     protected static ?string $title = 'Criar';
 
-    protected function getRedirectUrl(): ?string
+    protected function getRedirectUrl(): string
     {
         $resource = static::getResource();
 

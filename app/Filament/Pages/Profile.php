@@ -30,11 +30,11 @@ class Profile extends MyProfile
     {
         return [
             Forms\Components\TextInput::make("name")
-                ->label(__('filament-breezy::default.profile.personal_info.fields.name'))
+                ->label(__('filament-breezy::default.fields.name'))
                 ->required(),
             Forms\Components\TextInput::make("email")
                 ->unique(ignorable: $this->user)
-                ->label(__('filament-breezy::default.profile.personal_info.fields.email'))
+                ->label(__('filament-breezy::default.fields.email'))
                 ->disabled()
                 ->required(),
             Forms\Components\FileUpload::make('avatar')
