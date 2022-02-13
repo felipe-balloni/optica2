@@ -69,11 +69,7 @@ Run the dev server (the output will give the address):
 php artisan serve
 ```
 
-You're ready to go! Visit the url in your browser
-    
-    /sistema
-
-, and login with:
+You're ready to go! Visit the url in your browser and login with:
 
 Super Administrator
 - **Username:** super.admin@test.com
