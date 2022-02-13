@@ -28,6 +28,18 @@ The easiest and most intuitive way to add access management to your Filament Res
 
 Access the [Repository](https://github.com/bezhanSalleh/filament-shield) by [Bezhan Salleh](https://github.com/bezhanSalleh), to check all the documentation.
 
+## Filament Spatie Laravel Backup
+
+This package provides a Filament page that you can create backup of your application. You'll find installation instructions and full documentation on spatie/laravel-backup.
+
+Access the [Repository](https://github.com/shuvroroy/filament-spatie-laravel-backup) by [Shuvro Roy](https://github.com/shuvroroy), to check all the documentation.
+
+## Filament Breezy
+
+The missing toolkit from Filament Admin with Breeze-like functionality. Includes login, registration, password reset, password confirmation, email verification, and a my profile page. All using the TALL-stack, all very Filament-y.
+
+Access the [Repository](https://github.com/jeffgreco13/filament-breezy) by [Jeff Greco](https://github.com/jeffgreco13), to check all the documentation.
+
 ## Installation
 
 Clone the repo locally:
