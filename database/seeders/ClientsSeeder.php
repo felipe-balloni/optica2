@@ -18,10 +18,10 @@ class ClientsSeeder extends Seeder
         auth()->loginUsingId(User::whereEmail('super.admin@test.com')->pluck('id'));
 
         Client::factory()->count(10)->create();
+        Client::factory()->count(5)->defaulter()->create();
         Client::factory()->count(10)->female()->create();
         Client::factory()->count(5)->notApplicable()->create();
         Client::factory()->count(10)->pessoaJuridica()->create();
 
-        Client::factory()->count(10)->defaulter()->create();
     }
 }

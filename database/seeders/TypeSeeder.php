@@ -15,12 +15,12 @@ class TypeSeeder extends Seeder
     public function run()
     {
         $types = [
-            array('name' => 'Pessoa Física', 'used_by' => 'Clients'),
+            array('name' => 'Pessoa Física', 'used_by' => 'Clients', 'is_default' => true),
             array('name' => 'Pessoa Jurídica', 'used_by' => 'Clients'),
             array('name' => 'Residencial', 'used_by' => 'Phones'),
-            array('name' => 'Comercial', 'used_by' => 'Phones'),
+            array('name' => 'Comercial', 'used_by' => 'Phones', 'is_default' => true),
             array('name' => 'Celular', 'used_by' => 'Phones'),
-            array('name' => 'Residencial', 'used_by' => 'Addresses'),
+            array('name' => 'Residencial', 'used_by' => 'Addresses', 'is_default' => true),
             array('name' => 'Comercial', 'used_by' => 'Addresses'),
         ];
 
