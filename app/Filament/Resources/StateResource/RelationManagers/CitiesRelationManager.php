@@ -20,6 +20,7 @@ class CitiesRelationManager extends HasManyRelationManager
             ->schema([
                 Forms\Components\TextInput::make('city')
                     ->label('Cidade')
+                    ->maxLength(250)
                     ->required()
             ]);
     }

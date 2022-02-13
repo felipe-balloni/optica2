@@ -44,9 +44,11 @@ class UserResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nome')
+                                    ->maxLength(250)
                                     ->required(),
                                 Forms\Components\TextInput::make('email')
                                     ->label('E-mail')
+                                    ->maxLength(250)
                                     ->email()
                                     ->unique(ignorable: fn (?Model $record): ?Model => $record)
                                     ->required(),
@@ -56,6 +58,7 @@ class UserResource extends Resource
                             ->schema([
                                 Forms\Components\FileUpload::make('avatar')
                                     ->label('Avatar')
+                                    ->maxSize(2048)
                                     ->directory('users')
                                     ->image(),
                             ]),
@@ -65,6 +68,7 @@ class UserResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('password')
                             ->label('Senha')
+                            ->maxLength(250)
                             ->password()
                             ->rules(['confirmed'])
                             ->dehydrateStateUsing(fn ($state) => Hash::make($state))
@@ -72,6 +76,7 @@ class UserResource extends Resource
                             ->required(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
                         Forms\Components\TextInput::make('password_confirmation')
                             ->label('Confirme a senha')
+                            ->maxLength(250)
                             ->password()
                             ->required()
                             ->dehydrated(false)

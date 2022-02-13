@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\Collection;
 
 class Type extends Model
@@ -18,6 +19,11 @@ class Type extends Model
     protected $fillable = [
         'name',
         'used_by',
+        'is_default',
+    ];
+
+    protected $casts = [
+      'is_default' => 'boolean',
     ];
 
     public const MODULES = [
