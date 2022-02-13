@@ -38,6 +38,7 @@ class ClientResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nome')
+                    ->maxLength(250)
                     ->helperText('Nome completo ou Razão social.')
                     ->required(),
                 Forms\Components\Select::make('type_id')
@@ -49,6 +50,7 @@ class ClientResource extends Resource
                     ->reactive(),
                 Forms\Components\TextInput::make('email')
                     ->label('E-mail')
+                    ->maxLength(250)
                     ->helperText('E-mail válido e único no cadastro de clientes.')
                     ->email()
                     ->unique(ignorable: fn (?Model $record): ?Model => $record),
@@ -161,11 +163,13 @@ class ClientResource extends Resource
                                     ->schema([
                                         Forms\Components\TextInput::make('address_1')
                                             ->label('Endereço')
+                                            ->maxLength(250)
                                             ->helperText('Nome da rua, sem número, por favor, usar notação padrão dos correios: Rua, Av., etc.')
                                             ->required()
                                             ->columnSpan(2),
                                         Forms\Components\TextInput::make('number')
                                             ->label('Número')
+                                            ->maxLength(10)
                                             ->helperText('Apenas o número ou S/N (sem numero).')
                                             ->required(),
                                     ])
@@ -174,9 +178,11 @@ class ClientResource extends Resource
                                     ->schema([
                                         Forms\Components\TextInput::make('complement')
                                             ->label('Complemento')
+                                            ->maxLength(30)
                                             ->helperText('Complemento do endereço, exemplo: Apto 10, sala 01, etc.'),
                                         Forms\Components\TextInput::make('address_2')
                                             ->label('Bairro')
+                                            ->maxLength(250)
                                             ->helperText('Nome do Bairro, por favor, usar notação padrão dos correios: Jd., Res., etc.')
                                             ->required(),
                                         Forms\Components\Select::make('state_id')
@@ -204,6 +210,7 @@ class ClientResource extends Resource
                                     ]),
                                 Forms\Components\Textarea::make('comments')
                                     ->rows(1)
+                                    ->maxLength(1000)
                                     ->label('Observação geral')
                                     ->helperText('Observações relativas ao endereço, exemplos: ponto de referencias, etc.')
                                     ->columnSpan(2),

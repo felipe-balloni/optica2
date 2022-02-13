@@ -25,8 +25,6 @@ class StateResource extends Resource
 
     protected static ?string $navigationGroup = 'Tabelas';
 
-    protected static ?int $navigationSort = 2;
-
     protected static ?string $label = 'Estado';
 
     protected static ?string $pluralLabel = 'Estados e Cidades';
@@ -37,10 +35,12 @@ class StateResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('state')
                     ->label('Estado')
+                    ->maxLength(250)
                     ->unique()
                     ->required(),
                 Forms\Components\TextInput::make('abbreviation')
                     ->label('Abr')
+                    ->maxLength(2)
                     ->unique()
                     ->required(),
             ]);

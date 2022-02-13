@@ -17,6 +17,7 @@ class CreateTypesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('used_by');
+            $table->boolean('is_default');
         });
     }
 

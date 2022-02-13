@@ -16,7 +16,7 @@ class Profile extends MyProfile
     protected static ?string $navigationGroup = "Configurações";
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
     protected static ?string $slug = 'profile';
-    protected static ?string $navigationLabel = 'Perfil';
+    protected static ?int $navigationSort = 99;
 
     public User $user;
 
@@ -31,16 +31,52 @@ class Profile extends MyProfile
         return [
             Forms\Components\TextInput::make("name")
                 ->label(__('filament-breezy::default.fields.name'))
+                ->maxLength(250)
                 ->required(),
             Forms\Components\TextInput::make("email")
-                ->unique(ignorable: $this->user)
                 ->label(__('filament-breezy::default.fields.email'))
+                ->maxLength(250)
+                ->unique(ignorable: $this->user)
                 ->disabled()
                 ->required(),
             Forms\Components\FileUpload::make('avatar')
                 ->label('Avatar')
+                ->maxSize(2048)
                 ->directory('users')
                 ->image(),
         ];
+    }
+
+    protected function getUpdatePasswordFormSchema(): array
+    {
+        return [
+            Forms\Components\TextInput::make("new_password")
+                ->label(__('filament-breezy::default.fields.new_password'))
+                ->maxLength(250)
+                ->password()
+                ->rules(config('filament-breezy.password_rules'))
+                ->required(),
+            Forms\Components\TextInput::make("new_password_confirmation")
+                ->label(__('filament-breezy::default.fields.new_password_confirmation'))
+                ->maxLength(250)
+                ->password()
+                ->same("new_password")
+                ->required(),
+        ];
+    }
+
+    protected static function getNavigationGroup(): ?string
+    {
+        return 'Usuário';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament-breezy::default.profile.profile');
+    }
+
+    protected function getTitle(): string
+    {
+        return __('filament-breezy::default.profile.my_profile');
     }
 }

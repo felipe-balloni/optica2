@@ -17,9 +17,7 @@ class TypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-tag';
 
-    protected static ?string $navigationGroup = 'Tabelas';
-
-    protected static ?int $navigationSort = 5;
+    protected static ?string $navigationGroup = 'Configurações';
 
     protected static ?string $label = 'Tipo';
 
@@ -31,12 +29,16 @@ class TypeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nome')
-                    ->maxLength(255)
+                    ->maxLength(250)
                     ->required(),
                 Forms\Components\Select::make('used_by')
                     ->label('Usado em')
+                    ->helperText('Módulos do sistema')
                     ->options(Type::MODULES)
                     ->required(),
+                Forms\Components\Toggle::make('is_default')
+                    ->label('Padrão')
+                    ->helperText('Selecione qual padrão para uso em cada módulo do sistema'),
             ]);
     }
 
