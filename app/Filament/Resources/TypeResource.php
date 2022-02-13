@@ -61,10 +61,17 @@ class TypeResource extends Resource
                     ->colors([
                         'danger',
                     ]),
+                Tables\Columns\BooleanColumn::make('is_default')
+                    ->label('Padrão')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
-                //
-            ]);
+                Tables\Filters\SelectFilter::make('used_by')
+                    ->label('Usado em')
+                    ->options(Type::MODULES),
+            ])
+            ->defaultSort('used_by');
     }
 
     public static function getRelations(): array
