@@ -7,8 +7,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use phpDocumentor\Reflection\Types\Boolean;
-use phpDocumentor\Reflection\Types\Collection;
 
 class Type extends Model
 {
@@ -30,7 +28,6 @@ class Type extends Model
         'Clients' => 'Clients',
         'Phones' => 'Phones',
         'Addresses' => 'Addresses',
-        'Recipes' => 'Recipes',
     ];
 
     protected static function booted(): void
@@ -50,6 +47,13 @@ class Type extends Model
 
     public static function getTypes(string $model): mixed
     {
-        return Cache::rememberForever('types::of::' .  $model, fn () => self::where('used_by', $model)->pluck('name', 'id'));
+        return Cache::rememberForever('types::of::' . $model, fn() => self::where('used_by', $model)->pluck('name', 'id'));
+    }
+
+    public static function getDefault(string $model): int
+    {
+        return self::where('used_by', $model)->where('is_default', true)->first()
+            ? self::where('used_by', $model)->where('is_default', true)->first()->id
+            : self::where('used_by', $model)->first()->id;
     }
 }

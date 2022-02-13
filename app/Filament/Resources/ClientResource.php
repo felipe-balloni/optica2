@@ -45,7 +45,7 @@ class ClientResource extends Resource
                     ->label('Tipo do cliente')
                     ->helperText('Selecione o tipo do cliente.')
                     ->options(Type::getTypes('Clients'))
-                    ->default(1)
+                    ->default(Type::getDefault('Clients'))
                     ->required()
                     ->reactive(),
                 Forms\Components\TextInput::make('email')
@@ -118,7 +118,8 @@ class ClientResource extends Resource
                                     ->label('Tipo do telefone')
                                     ->helperText('Selecione o tipo do telefone.')
                                     ->options(Type::getTypes('Phones'))
-                                    ->default(5)
+                                    ->default(Type::getDefault('Phones'))
+
                                     ->required(),
                                 Forms\Components\TextInput::make('phone')
                                     ->label('Telefone')
@@ -147,7 +148,7 @@ class ClientResource extends Resource
                                     ->label('Tipo do endereço')
                                     ->helperText('Selecione o tipo do endereço.')
                                     ->options(Type::getTypes('Addresses'))
-                                    ->default(6)
+                                    ->default(Type::getDefault('Addresses'))
                                     ->required(),
                                 TextInputButton::make('postal_code')
                                     ->label('CEP')
