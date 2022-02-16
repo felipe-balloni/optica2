@@ -17,7 +17,8 @@ class City extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'city'
+        'city',
+        'cod_ibge'
     ];
 
     protected static function booted()
@@ -47,7 +48,6 @@ class City extends Model
     {
         return Cache::rememberForever('cities', fn () => self::all());
     }
-
 
     public static function getCitiesOfState(int $state_id): mixed
     {

@@ -16,6 +16,7 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('city');
+            $table->string('cod_ibge');
             $table->foreignId('state_id')->constrained()->cascadeOnDelete();
         });
     }
