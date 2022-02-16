@@ -1,3 +1,6 @@
+![image1](https://user-images.githubusercontent.com/19998735/154263601-ac603d1b-5e4a-4c1b-85d7-1d105e1b8f5f.png)
+
+
 ## Optica2 - this a partial clone of a real project.
 
 This is for learning purposes only.
