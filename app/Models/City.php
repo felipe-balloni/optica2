@@ -17,7 +17,8 @@ class City extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'city'
+        'city',
+        'cod_ibge'
     ];
 
     protected static function booted()

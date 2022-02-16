@@ -64,6 +64,7 @@ class StateResource extends Resource
                     ->sortable(),
                 Tables\Columns\BadgeColumn::make('cities_count')
                     ->label('Cidades')
+                    ->alignRight()
                     ->counts('cities')
                     ->colors(['success'])
                     ->sortable()
