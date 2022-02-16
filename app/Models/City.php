@@ -48,7 +48,6 @@ class City extends Model
         return Cache::rememberForever('cities', fn () => self::all());
     }
 
-
     public static function getCitiesOfState(int $state_id): mixed
     {
         return Cache::rememberForever('cities::of::state::' . $state_id, fn () => self::getCities()->where('state_id', $state_id));
