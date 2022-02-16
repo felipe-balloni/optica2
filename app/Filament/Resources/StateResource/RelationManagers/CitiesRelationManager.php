@@ -21,6 +21,10 @@ class CitiesRelationManager extends HasManyRelationManager
                 Forms\Components\TextInput::make('city')
                     ->label('Cidade')
                     ->maxLength(250)
+                    ->required(),
+                Forms\Components\TextInput::make('cod_ibge')
+                    ->label('Cód. IBGE')
+                    ->maxLength(250)
                     ->required()
             ]);
     }
@@ -31,6 +35,9 @@ class CitiesRelationManager extends HasManyRelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('city')
                     ->label('Cidade')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cod_ibge')
+                    ->label('Cód. IBGE')
                     ->searchable()
             ])
             ->filters([
