@@ -1,12 +1,16 @@
-const colors = require('tailwindcss/colors')
-const defaultTheme = require("tailwindcss/defaultTheme");
+import colors from 'tailwindcss/colors'
+import forms from '@tailwindcss/forms'
+import typography from '@tailwindcss/typography'
 
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
-        "./vendor/filament/**/*.blade.php",
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
     ],
     darkMode: 'class',
     theme: {
@@ -23,7 +27,7 @@ module.exports = {
         },
     },
     plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography')
+        forms,
+        typography,
     ],
 }

@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Filament::serving(function (): void {
-            Filament::registerTheme(mix('css/app.css'));
+        Filament::serving(function () {
+            Filament::registerViteTheme('resources/css/filament.css');
         });
 
         Model::preventLazyLoading(!app()->isProduction());
