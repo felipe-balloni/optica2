@@ -4,7 +4,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
 use Filament\Pages;
-use Filament\Resources;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -30,6 +29,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Filament Core Path
+    |--------------------------------------------------------------------------
+    |
+    | This is the path which Filament will use to load its core routes and assets.
+    | You may change it if it conflicts with your other routes.
+    |
+    */
+
+    'core_path' => env('FILAMENT_CORE_PATH', 'filament'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filament Domain
     |--------------------------------------------------------------------------
     |
@@ -45,7 +56,7 @@ return [
     | Homepage URL
     |--------------------------------------------------------------------------
     |
-    | This is the URL that Filament will redirect the user to when they click
+    | This is the URL that Filament will redfirect the user to when they click
     | on the sidebar's header.
     |
     */
@@ -76,7 +87,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class,
+            'login' => \Filament\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -162,6 +173,47 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database notifications
+    |--------------------------------------------------------------------------
+    |
+    | By enabling this feature, your users are able to open a slide-over within
+    | the admin panel to view their database notifications.
+    |
+    */
+
+    'database_notifications' => [
+        'enabled' => false,
+        'polling_interval' => '30s',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Broadcasting
+    |--------------------------------------------------------------------------
+    |
+    | By uncommenting the Laravel Echo configuration, you may connect your
+    | admin panel to any Pusher-compatible websockets server.
+    |
+    | This will allow your admin panel to receive real-time notifications.
+    |
+    */
+
+    'broadcasting' => [
+
+        // 'echo' => [
+        //     'broadcaster' => 'pusher',
+        //     'key' => env('VITE_PUSHER_APP_KEY'),
+        //     'cluster' => env('VITE_PUSHER_APP_CLUSTER'),
+        //     'wsHost' => env('VITE_PUSHER_HOST'),
+        //     'wsPort' => env('VITE_PUSHER_PORT'),
+        //     'wssPort' => env('VITE_PUSHER_PORT'),
+        //     'forceTLS' => true,
+        // ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
@@ -173,19 +225,35 @@ return [
     */
 
     'layout' => [
+        'actions' => [
+            'modal' => [
+                'actions' => [
+                    'alignment' => 'left',
+                ],
+            ],
+        ],
         'forms' => [
             'actions' => [
                 'alignment' => 'left',
+                'are_sticky' => false,
             ],
+            'have_inline_labels' => false,
         ],
         'footer' => [
             'should_show_logo' => true,
         ],
         'max_content_width' => 'full',
-        'tables' => [
-            'actions' => [
-                'type' => \Filament\Tables\Actions\IconButtonAction::class,
+        'notifications' => [
+            'vertical_alignment' => 'top',
+            'alignment' => 'right',
+        ],
+        'sidebar' => [
+            'is_collapsible_on_desktop' => true,
+            'groups' => [
+                'are_collapsible' => true,
             ],
+            'width' => null,
+            'collapsed_width' => null,
         ],
     ],
 
@@ -226,10 +294,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Google Fonts
+    |--------------------------------------------------------------------------
+    |
+    | This is the URL for Google Fonts that should be loaded. You may use any
+    | font, or set to `null` to prevent any Google Fonts from loading.
+    |
+    | When using a custom font, you should also set the font family in your
+    | custom theme's `tailwind.config.js` file.
+    |
+    */
+
+    'google_fonts' => 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap',
+
+    /*
+    |--------------------------------------------------------------------------
     | Middleware
     |--------------------------------------------------------------------------
     |
-    | You may customise the middleware stack that Filament uses to handle
+    | You may customize the middleware stack that Filament uses to handle
     | requests.
     |
     */

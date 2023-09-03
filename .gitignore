@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 _ide_helper*
 .phpstorm.meta.php
+/public/css/app.css
+/public/js/app.js
