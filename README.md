@@ -84,7 +84,35 @@ This guide walks you through the process of setting up a Laravel application usi
     ./vendor/bin/sail artisan key:generate
     ```
 
-5. **Start Laravel Sail:**
+5. **Install JavaScript dependencies:**
+
+   Use npm or yarn to install JavaScript dependencies:
+
+    ```shell
+    ./vendor/bin/sail npm install
+    ```
+
+   or
+
+    ```shell
+    ./vendor/bin/sail yarn install
+    ```
+
+6. **Run the first build process for JavaScript assets:**
+
+   In order to compile your assets for the first time, you have to run:
+
+    ```shell
+    ./vendor/bin/sail npm run dev
+    ```
+
+   or
+
+    ```shell
+    ./vendor/bin/sail yarn run dev
+    ```
+
+7. **Start Laravel Sail:**
 
    Use the following command to start Laravel Sail. The '-d' flag runs the containers in the background:
 
@@ -92,7 +120,7 @@ This guide walks you through the process of setting up a Laravel application usi
     ./vendor/bin/sail up -d
     ```
 
-6. **Run database migrations and seed data:**
+8. **Run database migrations and seed data:**
 
    Use this command to perform database migrations and seed data:
 
