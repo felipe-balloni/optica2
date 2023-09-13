@@ -43,48 +43,66 @@ The missing toolkit from Filament Admin with Breeze-like functionality. Includes
 
 Access the [Repository](https://github.com/jeffgreco13/filament-breezy) by [Jeff Greco](https://github.com/jeffgreco13), to check all the documentation.
 
-## Installation
+## Installation Guide: Docker and Laravel Sail
 
-Clone the repo locally:
+This guide walks you through the process of setting up a Laravel application using Docker and Laravel Sail. Please ensure you have Docker installed before proceeding. Laravel Sail is a lightweight command-line interface for manipulating Laravel's default Docker environment.
 
-```sh
-https://github.com/felipe-balloni/optica2.git optica2
-cd optica2
-```
+1. **Clone the repository and navigate into the directory:**
 
-Install PHP dependencies:
+   Use the following commands to clone the repository and navigate into the directory:
 
-```sh
-composer install
-```
+    ```shell
+    git clone https://github.com/felipe-balloni/optica2.git optica2 && cd optica2
+    ```
 
-Setup configuration:
+2. **Create a Docker container:**
 
-```sh
-cp .env.example .env
-```
+   Run the following command to create a Docker container using Laravel's default PHP 8.1 and Composer settings:
 
-Generate application key:
+    ```shell
+    docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+    ```
 
-```sh
-php artisan key:generate
-```
+3. **Configure Environment Variables:**
 
-Create an SQLite database or use another database (MySQL, Postgres) and configure your .env accordingly.
+   Copy the '.env.example' file to '.env' and modify the variable settings as needed. Make sure to appropriately configure your database settings (`DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD`) and the application settings (`APP_URL, APP_PORT, FORWARD_DB_PORT`):
 
-Run database migrations with seed and permissions:
+    ```shell
+    cp .env.example .env
+    ```
 
-```sh
-php artisan migrate --seed && php artisan shield:generate
-```
+4. **Generate an application key:**
 
-Run the dev server (the output will give the address):
+   Before initializing the Laravel Sail environment, generate an application key using the following command:
 
-```sh
-php artisan serve
-```
+    ```shell
+    ./vendor/bin/sail artisan key:generate
+    ```
 
-You're ready to go! Visit the url in your browser and login with:
+5. **Start Laravel Sail:**
+
+   Use the following command to start Laravel Sail. The '-d' flag runs the containers in the background:
+
+    ```shell
+    ./vendor/bin/sail up -d
+    ```
+
+6. **Run database migrations and seed data:**
+
+   Use this command to perform database migrations and seed data:
+
+    ```shell
+    ./vendor/bin/sail artisan migrate --seed && ./vendor/bin/sail artisan shield:generate
+    ```
+
+#### Default User Credentials
+
+The seeder creates the following users:
 
 Super Administrator
 - **Username:** super.admin@test.com
@@ -94,16 +112,15 @@ Administrator
 - **Username:** admin@test.com
 - **Password:** password
 
-Users
-
+Additional Users
 - **Username:** user1@test.com
 - **Password:** password
-
-
 - **Username:** user2@test.com (_inactive_)
 - **Password:** password
 
-`Users and Administrator don't have any permission (yet). You need to enter with Super Administrador to setup then.`
+Note that these users and administrators initially have no permissions. You need to log in as the Super Administrator to configure their permissions.
 
-## Note:
-The application is configured with the pt_BR language and America/Sao_Paulo time zone. If necessary, please remember to change it in the config/app.php configuration file
+You can now access the webpage at http://localhost:8000 and sign in using the above credentials.
+
+#### Note:
+The application is set to pt_BR language and America/Sao_Paulo time zone by default. If necessary, remember to change these in your config/app.php configuration file.
